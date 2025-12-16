@@ -32,9 +32,12 @@ export function AppHeader() {
           href={user ? `/${user.role}/dashboard` : '/'}
           className="flex items-center gap-2"
         >
-          <Icons.Leaf className="h-6 w-6 text-primary" />
+          <span className="text-xl font-bold text-primary font-headline">
+            B
+          </span>
+          <Icons.Tent className="h-6 w-6 text-primary -mx-1.5" />
           <h1 className="text-xl font-bold text-primary font-headline">
-            Trailblazer Checklist
+            secamp
           </h1>
           <Icons.Mountain className="h-6 w-6 text-primary" />
         </Link>

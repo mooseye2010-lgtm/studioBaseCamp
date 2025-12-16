@@ -16,7 +16,10 @@ import {
   ArrowLeft,
   Loader2,
   FileCheck2,
-  ClipboardList
+  ClipboardList,
+  Tent,
+  Trash2,
+  Hammer
 } from 'lucide-react';
 
 export const Icons = {
@@ -38,4 +41,7 @@ export const Icons = {
   Spinner: Loader2,
   Checklist: FileCheck2,
   List: ClipboardList,
+  Tent,
+  Trash: Trash2,
+  Stake: Hammer
 };

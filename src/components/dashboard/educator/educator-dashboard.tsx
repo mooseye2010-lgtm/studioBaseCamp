@@ -10,14 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Progress } from '@/components/ui/progress';
 import { getOverallTripProgress } from '@/lib/utils';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 
 export function EducatorDashboard() {
   const { user } = useAuth();
@@ -36,22 +29,12 @@ export function EducatorDashboard() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <h2 className="text-3xl font-bold tracking-tight font-headline">Your Trips</h2>
-         <Dialog>
-            <DialogTrigger asChild>
-                <Button>
-                    <Icons.PlusCircle className="mr-2" />
-                    Create New Trip
-                </Button>
-            </DialogTrigger>
-            <DialogContent>
-                 <DialogHeader>
-                    <DialogTitle>Create New Trip</DialogTitle>
-                    <DialogDescription>
-                        This feature is not yet implemented. In a real application, this would open a form to create a new packing list.
-                    </DialogDescription>
-                </DialogHeader>
-            </DialogContent>
-        </Dialog>
+         <Link href="/educator/trip/new">
+            <Button>
+                <Icons.PlusCircle className="mr-2" />
+                Create New Trip
+            </Button>
+         </Link>
       </div>
 
       {trips.length > 0 ? (

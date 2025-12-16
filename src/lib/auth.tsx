@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 import { useRouter, usePathname } from 'next/navigation';
 import type { User } from './types';
 import { users } from './data';
-import { Skeleton } from '@/components/ui/skeleton';
+import { LoadingSpinner } from '@/components/loading-spinner';
 
 interface AuthContextType {
   user: User | null;
@@ -66,15 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const value = { user, isAuthenticated: !!user, loading, login, logout };
 
   if (loading) {
-     return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <div className="w-full max-w-md space-y-4">
-            <Skeleton className="h-24 w-full" />
-            <Skeleton className="h-12 w-full" />
-            <Skeleton className="h-12 w-full" />
-        </div>
-      </div>
-    );
+     return <LoadingSpinner />;
   }
 
   return (

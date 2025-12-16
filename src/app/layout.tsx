@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { placeholderImages } from '@/lib/placeholder-images';
 
 export const metadata: Metadata = {
-  title: 'Trailblazer Checklist',
+  title: 'Basecamp',
   description: 'Collaborative packing lists for students and educators',
 };
 
