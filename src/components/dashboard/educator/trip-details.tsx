@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { trips, users } from '@/lib/data';
 import type { Trip, User } from '@/lib/types';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { getStudentTripProgress } from '@/lib/utils';
@@ -11,7 +10,6 @@ import Link from 'next/link';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { StudentChecklistView } from './student-checklist-view';
-import Image from 'next/image';
 
 export function TripDetails({ tripId }: { tripId: string }) {
   const [trip, setTrip] = useState<Trip | null>(null);
@@ -55,7 +53,7 @@ export function TripDetails({ tripId }: { tripId: string }) {
             <div className="lg:col-span-1 space-y-3">
                  <h3 className="text-xl font-semibold px-2">Student Progress</h3>
                  {students.map((student, i) => (
-                    <div key={student.id} style={{animationDelay: `${i * 70}ms`, animationFillMode: 'backwards'}} className="animate-float-in">
+                    <div key={student.id} style={{animationDelay: `${i * 70}ms`, animationFillMode: 'backwards'}} className="animate-fade-in-up">
                         <StudentProgressItem student={student} tripId={tripId} onSelect={() => setSelectedStudent(student)} isActive={selectedStudent?.id === student.id} />
                     </div>
                 ))}

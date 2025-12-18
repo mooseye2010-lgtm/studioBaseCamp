@@ -17,11 +17,12 @@ export function EducatorDashboard() {
   const [activeTrip, setActiveTrip] = useState<string | null>(null);
 
   useEffect(() => {
+    const educatorTrips = allTrips.filter(trip => trip.assignedStudentIds.some(id => user?.id && id === user.id) || !trip.assignedStudentIds.length);
     setTrips(allTrips);
     if(allTrips.length > 0) {
         setActiveTrip(allTrips[0].id);
     }
-  }, []);
+  }, [user]);
 
   if (!user || user.role !== 'educator') {
     return null;

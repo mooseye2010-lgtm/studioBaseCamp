@@ -97,7 +97,7 @@ export function Checklist({ tripId }: { tripId: string }) {
                     if (!status) return null;
 
                     return (
-                        <div key={item.id} className="animate-float-in" style={{animationDelay: `${i * 50}ms`, animationFillMode: 'backwards'}}>
+                        <div key={item.id} className="animate-fade-in-up" style={{animationDelay: `${i * 50}ms`, animationFillMode: 'backwards'}}>
                             <Card className={cn(
                                 "transition-all duration-300 rounded-2xl",
                                 status.completed ? 'bg-secondary/70 border-primary/30' : 'bg-card'

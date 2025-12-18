@@ -66,21 +66,26 @@ export function StudentDashboard() {
     <div className="flex flex-col h-full w-full items-center justify-center p-4 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-4xl max-h-4xl bg-primary/10 rounded-full blur-3xl -z-10" />
 
-        <div className="relative w-full max-w-md">
-            {trips.map((trip, index) => (
-                <div
-                    key={trip.id}
-                    className="absolute w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                    style={{
-                        transform: `scale(${1 - Math.abs(index - currentTripIndex) * 0.1}) translateY(${(index - currentTripIndex) * -20}px) translateZ(${-Math.abs(index-currentTripIndex) * 50}px)`,
-                        zIndex: trips.length - Math.abs(index - currentTripIndex),
-                        opacity: Math.abs(index - currentTripIndex) > 2 ? 0 : 1,
-                        pointerEvents: index === currentTripIndex ? 'auto' : 'none'
-                    }}
-                >
-                    <TripCard trip={trip} studentId={user.id} />
-                </div>
-            ))}
+        <div className="relative w-full max-w-md" style={{ perspective: '1000px'}}>
+            {trips.map((trip, index) => {
+                const isCurrent = index === currentTripIndex;
+                const offset = index - currentTripIndex;
+                
+                return (
+                    <div
+                        key={trip.id}
+                        className="absolute w-full h-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                        style={{
+                            transform: `rotateY(${offset * 20}deg) translateX(${offset * 15}%) scale(${isCurrent ? 1 : 0.8})`,
+                            zIndex: trips.length - Math.abs(offset),
+                            opacity: Math.abs(offset) > 1 ? 0 : 1,
+                            pointerEvents: isCurrent ? 'auto' : 'none',
+                        }}
+                    >
+                        <TripCard trip={trip} studentId={user.id} />
+                    </div>
+                )
+            })}
         </div>
         
         <div className="absolute bottom-12 flex items-center gap-4">
