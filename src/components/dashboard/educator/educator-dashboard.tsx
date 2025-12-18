@@ -14,20 +14,26 @@ import { Progress } from '@/components/ui/progress';
 export function EducatorDashboard() {
   const { user } = useAuth();
   const [trips, setTrips] = useState<Trip[]>([]);
+  const [activeTrip, setActiveTrip] = useState<string | null>(null);
 
   useEffect(() => {
     setTrips(allTrips);
+    if(allTrips.length > 0) {
+        setActiveTrip(allTrips[0].id);
+    }
   }, []);
 
   if (!user || user.role !== 'educator') {
     return null;
   }
 
+  const activeTripData = trips.find(t => t.id === activeTrip);
+
   return (
-    <div className="container mx-auto max-w-5xl py-12">
+    <div className="container mx-auto max-w-5xl py-12 flex flex-col h-full">
         <header className="flex justify-between items-center mb-10">
             <div>
-                <h1 className="text-5xl font-bold tracking-tight font-headline">Dashboard</h1>
+                <h1 className="text-5xl font-bold tracking-tighter font-headline">Dashboard</h1>
                 <p className="text-muted-foreground mt-2 text-lg">Overview of your expeditions.</p>
             </div>
             <Button asChild size="lg" className="font-bold text-lg rounded-full">
@@ -38,16 +44,26 @@ export function EducatorDashboard() {
             </Button>
         </header>
 
-      {trips.length > 0 ? (
-        <div className="space-y-6">
-            {trips.map((trip, i) => (
-                <div key={trip.id} className="animate-fade-in-up" style={{animationDelay: `${i * 100}ms`, animationFillMode: 'backwards'}}>
-                    <TripCard trip={trip} />
-                </div>
-            ))}
+      {trips.length > 0 && activeTripData ? (
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <div className="md:col-span-1 space-y-4">
+                {trips.map((trip, i) => (
+                    <div 
+                        key={trip.id} 
+                        className="animate-float-in" 
+                        style={{animationDelay: `${i * 100}ms`, animationFillMode: 'backwards'}}
+                        onClick={() => setActiveTrip(trip.id)}
+                    >
+                        <TripListItem trip={trip} isActive={activeTrip === trip.id} />
+                    </div>
+                ))}
+            </div>
+            <div className="md:col-span-2 sticky top-28">
+                 <TripCard trip={activeTripData} />
+            </div>
         </div>
       ) : (
-        <div className="text-center p-16 border-2 border-dashed rounded-3xl animate-fade-in-up">
+        <div className="text-center p-16 border-2 border-dashed rounded-3xl animate-float-in flex-1 flex flex-col justify-center items-center">
             <Icons.List className="h-16 w-16 text-muted-foreground mx-auto mb-6" />
             <h3 className="text-3xl font-medium">No trips yet</h3>
             <p className="max-w-md mx-auto mt-3 text-muted-foreground text-lg">Get started by creating a new trip for your students.</p>
@@ -57,14 +73,27 @@ export function EducatorDashboard() {
   );
 }
 
+function TripListItem({ trip, isActive }: { trip: Trip, isActive: boolean }) {
+    return (
+        <Card className={`p-4 cursor-pointer transition-all duration-300 rounded-2xl border-2 ${isActive ? 'border-primary bg-primary/10' : 'border-border bg-card hover:bg-secondary'}`}>
+            <h3 className="font-semibold text-lg">{trip.name}</h3>
+            <div className="flex items-center text-sm text-muted-foreground mt-1">
+                <Icons.Calendar className="mr-2 h-4 w-4" />
+                <span>{new Date(trip.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</span>
+            </div>
+        </Card>
+    )
+}
+
 function TripCard({ trip }: { trip: Trip }) {
   const progress = getOverallTripProgress(trip.id);
 
   return (
     <Link href={`/educator/trip/${trip.id}`} className="block group">
-        <Card className="flex items-center overflow-hidden transition-all duration-300 ease-in-out hover:shadow-2xl hover:shadow-primary/20 hover:border-primary/50 bg-card/80 backdrop-blur-sm rounded-3xl hover:scale-[1.01] hover:-translate-y-1">
-             <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex-shrink-0">
+        <Card className="flex flex-col overflow-hidden transition-all duration-500 ease-in-out hover:shadow-2xl hover:shadow-primary/20 hover:border-primary/50 bg-card/80 backdrop-blur-sm rounded-3xl hover:scale-[1.01] hover:-translate-y-1">
+             <div className="relative w-full h-64 flex-shrink-0">
                 <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" data-ai-hint={trip.imageHint} />
+                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
             </div>
             <div className="flex-1 p-6 sm:p-8">
                 <h2 className="font-bold text-2xl sm:text-3xl leading-tight font-headline">
@@ -82,8 +111,8 @@ function TripCard({ trip }: { trip: Trip }) {
                     <Progress value={progress} className="h-3 rounded-full" />
                 </div>
             </div>
-            <div className="px-6 text-muted-foreground transition-transform group-hover:translate-x-1">
-                <Icons.ChevronRight className="h-8 w-8" />
+            <div className="absolute top-4 right-4 p-3 bg-card/50 rounded-full text-foreground transition-transform group-hover:translate-x-1 group-hover:scale-110">
+                <Icons.ChevronRight className="h-6 w-6" />
             </div>
         </Card>
     </Link>

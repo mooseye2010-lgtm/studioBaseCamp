@@ -41,7 +41,7 @@ export function Checklist({ tripId }: { tripId: string }) {
 
     if (checked) {
         setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 5000);
+        setTimeout(() => setShowConfetti(false), 4000);
     }
   };
 
@@ -61,8 +61,8 @@ export function Checklist({ tripId }: { tripId: string }) {
   }
 
   return (
-    <div className="animate-fade-in-up">
-       {showConfetti && <Confetti width={width} height={height} recycle={false} numberOfPieces={300} gravity={0.15} />}
+    <div className="animate-float-in">
+       {showConfetti && <Confetti width={width} height={height} recycle={false} numberOfPieces={200} gravity={0.1} colors={['#FBBF24', '#D4AF37', '#C0C0C0']} />}
        
        <div className="container mx-auto max-w-3xl py-12">
             <header className="mb-12 space-y-3">
@@ -97,7 +97,7 @@ export function Checklist({ tripId }: { tripId: string }) {
                     if (!status) return null;
 
                     return (
-                        <div key={item.id} className="animate-fade-in-up" style={{animationDelay: `${i * 50}ms`, animationFillMode: 'backwards'}}>
+                        <div key={item.id} className="animate-float-in" style={{animationDelay: `${i * 50}ms`, animationFillMode: 'backwards'}}>
                             <Card className={cn(
                                 "transition-all duration-300 rounded-2xl",
                                 status.completed ? 'bg-secondary/70 border-primary/30' : 'bg-card'
@@ -142,10 +142,10 @@ function Checkbox({ id, checked, onCheckedChange }: { id: string, checked: boole
             role="checkbox"
             aria-checked={checked}
             onClick={() => onCheckedChange(!checked)}
-            className="group h-16 w-16 shrink-0 flex items-center justify-center rounded-2xl bg-muted/60 hover:bg-muted transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring"
+            className="group h-16 w-16 shrink-0 flex items-center justify-center rounded-2xl bg-muted/30 hover:bg-muted/60 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring"
         >
             <div className={cn("h-9 w-9 rounded-lg border-2 border-foreground/30 flex items-center justify-center transition-all duration-300 group-hover:border-primary group-hover:scale-110", checked && "bg-primary border-primary rotate-6")}>
-                {checked && <Icons.Check className="h-8 w-8 text-primary-foreground animate-check-in" strokeWidth={3.5} />}
+                {checked && <Icons.Check className="h-8 w-8 text-primary-foreground animate-check-reveal" strokeWidth={3} />}
             </div>
         </button>
     )

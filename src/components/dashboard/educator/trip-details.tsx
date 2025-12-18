@@ -24,6 +24,9 @@ export function TripDetails({ tripId }: { tripId: string }) {
       setTrip(foundTrip);
       const assignedStudents = users.filter(u => foundTrip.assignedStudentIds.includes(u.id));
       setStudents(assignedStudents);
+      if (assignedStudents.length > 0) {
+        setSelectedStudent(assignedStudents[0]);
+      }
     } else {
         setTrip(null);
     }
@@ -34,77 +37,61 @@ export function TripDetails({ tripId }: { tripId: string }) {
   }
 
   return (
-    <div className="animate-fade-in-up container mx-auto max-w-6xl py-12">
-      {selectedStudent ? (
-        <div>
-            <Button variant="ghost" onClick={() => setSelectedStudent(null)} className="mb-8 text-base group flex items-center px-0 rounded-full">
-                <Icons.ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                Back to Student Overview
+    <div className="animate-float-in container mx-auto max-w-6xl py-12">
+        <div className="mb-8">
+            <Button asChild variant="ghost" className="px-0 rounded-full group">
+                <Link href="/educator/dashboard" className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 ">
+                    <Icons.ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+                    All Trips
+                </Link>
             </Button>
-            <StudentChecklistView 
-                trip={trip}
-                student={selectedStudent} 
-            />
+            <h2 className="text-4xl font-bold leading-tight font-headline mt-2">{trip.name}</h2>
+            <p className="text-lg text-muted-foreground flex items-center gap-2 mt-1">
+                <Icons.Calendar size={18} />
+                {new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
         </div>
-      ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
-            <div className="space-y-6 lg:col-span-1">
-                <Button asChild variant="ghost" className="px-0 rounded-full">
-                    <Link href="/educator/dashboard" className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group">
-                        <Icons.ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                        All Trips
-                    </Link>
-                </Button>
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-primary/10">
-                    <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" />
-                </div>
-                <h2 className="text-4xl font-bold leading-tight font-headline">{trip.name}</h2>
-                <p className="text-lg text-muted-foreground flex items-center gap-2">
-                    <Icons.Calendar size={18} />
-                    {new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
+            <div className="lg:col-span-1 space-y-3">
+                 <h3 className="text-xl font-semibold px-2">Student Progress</h3>
+                 {students.map((student, i) => (
+                    <div key={student.id} style={{animationDelay: `${i * 70}ms`, animationFillMode: 'backwards'}} className="animate-float-in">
+                        <StudentProgressItem student={student} tripId={tripId} onSelect={() => setSelectedStudent(student)} isActive={selectedStudent?.id === student.id} />
+                    </div>
+                ))}
             </div>
 
             <div className="lg:col-span-2">
-                <Card className="rounded-3xl bg-card/60">
-                    <CardHeader>
-                    <CardTitle className="text-2xl font-medium">Student Progress</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-3">
-                            {students.map((student, i) => (
-                            <div key={student.id} style={{animationDelay: `${i * 70}ms`, animationFillMode: 'backwards'}} className="animate-fade-in-up">
-                                <StudentProgressItem student={student} tripId={tripId} onSelect={() => setSelectedStudent(student)} />
-                            </div>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
+                {selectedStudent && (
+                     <StudentChecklistView 
+                        trip={trip}
+                        student={selectedStudent} 
+                    />
+                )}
             </div>
         </div>
-      )}
     </div>
   );
 }
 
-function StudentProgressItem({ student, tripId, onSelect }: { student: User, tripId: string, onSelect: () => void }) {
+function StudentProgressItem({ student, tripId, onSelect, isActive }: { student: User, tripId: string, onSelect: () => void, isActive: boolean }) {
   const progress = getStudentTripProgress(student.id, tripId);
   const getInitials = (name: string) => name.split(' ').map(n => n[0]).join('');
 
   return (
-     <div onClick={onSelect} className="flex items-center gap-4 p-4 rounded-2xl hover:bg-secondary cursor-pointer transition-all duration-200 group">
-      <Avatar className="h-12 w-12 text-base border-2">
+     <div onClick={onSelect} className={`flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all duration-200 group ${isActive ? 'bg-secondary' : 'hover:bg-secondary/50'}`}>
+      <Avatar className="h-12 w-12 text-base border-2 border-muted">
         <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${student.name}`} />
         <AvatarFallback>{getInitials(student.name)}</AvatarFallback>
       </Avatar>
       <div className="flex-1">
         <p className="font-medium text-lg">{student.name}</p>
         <div className="flex items-center gap-3 mt-1">
-             <Progress value={progress} className="h-2.5 rounded-full flex-1" />
+             <Progress value={progress} className="h-2 rounded-full flex-1" />
              <span className="font-semibold text-md text-accent w-14 text-right">{progress}%</span>
         </div>
       </div>
-       <Icons.ChevronRight className="h-6 w-6 text-muted-foreground transition-transform group-hover:translate-x-1" />
+       <Icons.ChevronRight className={`h-6 w-6 text-muted-foreground transition-transform ${isActive ? 'translate-x-1' : 'group-hover:translate-x-1'}`} />
     </div>
   )
 }
