@@ -57,6 +57,38 @@
     --ring: 45 60% 75%;
     --radius: 2rem;
   }
+
+  .light {
+    --background: 40 30% 98%; /* Off-white, like sandstone */
+    --foreground: 30 10% 10%;
+    
+    --card: 40 25% 92%; /* Light, warm gray */
+    --card-foreground: 30 10% 15%;
+
+    --popover: 40 30% 98%;
+    --popover-foreground: 30 10% 10%;
+
+    --primary: 35 70% 55%; /* Rich, earthy ochre */
+    --primary-foreground: 40 30% 99%;
+
+    --secondary: 140 25% 85%; /* Muted, light sage green */
+    --secondary-foreground: 140 20% 15%;
+
+    --muted: 40 20% 88%;
+    --muted-foreground: 30 10% 45%;
+
+    --accent: 190 70% 50%; /* Calm, dusty sky blue */
+    --accent-foreground: 190 100% 95%;
+
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 20% 80%;
+    --input: 40 20% 85%;
+    --ring: 35 70% 55%;
+    
+    --radius: 2rem;
+  }
 }
 
 @layer base {

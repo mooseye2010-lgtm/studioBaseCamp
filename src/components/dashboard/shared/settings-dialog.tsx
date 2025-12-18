@@ -6,6 +6,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -14,9 +15,24 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
 
 export function SettingsDialog({ open, onOpenChange }: { open: boolean, onOpenChange: (open: boolean) => void }) {
   const { theme, setTheme } = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState(theme);
+
+  useEffect(() => {
+    if (open) {
+      setSelectedTheme(theme);
+    }
+  }, [open, theme]);
+
+  const handleSaveChanges = () => {
+    if (selectedTheme) {
+      setTheme(selectedTheme);
+    }
+    onOpenChange(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -24,13 +40,13 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean, onOpenCh
         <DialogHeader>
           <DialogTitle>Settings</DialogTitle>
           <DialogDescription>
-            Customize your app experience. Changes are saved automatically.
+            Customize your app experience.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 space-y-8">
             <div className="space-y-4">
                 <h3 className="font-semibold text-lg">Appearance</h3>
-                 <RadioGroup value={theme} onValueChange={setTheme} className="grid grid-cols-3 gap-4">
+                 <RadioGroup value={selectedTheme} onValueChange={setSelectedTheme} className="grid grid-cols-3 gap-4">
                     <div>
                         <RadioGroupItem value="light" id="light" className="peer sr-only" />
                         <Label htmlFor="light" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/20 peer-data-[state=checked]:text-primary-foreground w-full cursor-pointer h-20 text-lg font-medium transition-all">
@@ -76,6 +92,10 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean, onOpenCh
                 </div>
             </div>
         </div>
+        <DialogFooter className="pt-4">
+          <Button variant="ghost" onClick={() => onOpenChange(false)}>Cancel</Button>
+          <Button onClick={handleSaveChanges}>Save Changes</Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
