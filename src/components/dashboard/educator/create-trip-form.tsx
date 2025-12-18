@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -292,7 +293,7 @@ function PackingItemForm({ form, index, onRemove, isRemoveDisabled }: { form: an
           render={({ field }) => (
             <FormItem className="flex-1">
               <FormControl>
-                <Input placeholder="e.g., Water Bottle" {...field} className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-base h-auto p-1 rounded-md" />
+                <Input placeholder="e.g., Water Bottle" {...field} className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-base font-medium h-auto p-1 rounded-md" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -396,3 +397,5 @@ function PackingItemForm({ form, index, onRemove, isRemoveDisabled }: { form: an
     </Card>
   );
 }
+
+    
