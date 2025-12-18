@@ -31,12 +31,12 @@ export function AppHeader() {
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-lg">
-        <div className="container grid grid-cols-3 h-24 items-center">
-          <div className="col-span-1" />
-          <div className="col-span-1 flex justify-center">
+        <div className="container flex h-24 items-center justify-between">
+          <div className="w-14"></div>
+          <div className="flex-1 flex justify-center">
              <Link
                 href={user ? `/${user.role}/dashboard` : '/'}
-                className="flex items-center gap-1"
+                className="flex items-center gap-1 bg-card/50 px-6 py-2 rounded-full border border-border/50"
               >
                 <h1 className="flex items-center justify-center gap-1 text-3xl text-foreground tracking-[0.2em] font-headline font-light">
                   <span>BASEC</span>
@@ -45,7 +45,7 @@ export function AppHeader() {
                 </h1>
               </Link>
           </div>
-          <div className="col-span-1 flex items-center justify-end space-x-4">
+          <div className="flex items-center justify-end">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-14 w-14 rounded-full">
