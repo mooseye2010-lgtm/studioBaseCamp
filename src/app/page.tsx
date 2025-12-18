@@ -13,12 +13,12 @@ export default function Home() {
           className="mb-12 animate-float-in animate-gentle-float" 
           style={{ animationDelay: '200ms', animationFillMode: 'backwards' }}
         >
-          <h1 className="flex items-center justify-center gap-1 text-6xl text-foreground/90 tracking-widest font-headline font-light">
-            <span>Basec</span>
-            <Tent className="text-primary -mb-1" size={48} strokeWidth={2} />
-            <span>mp</span>
+          <h1 className="flex items-center justify-center gap-1 text-6xl text-foreground/90 tracking-[0.2em] font-headline font-light">
+            <span>BASEC</span>
+            <Tent className="text-primary -mb-1" size={48} strokeWidth={1.5} />
+            <span>MP</span>
           </h1>
-          <p className="text-lg text-muted-foreground mt-2 tracking-wider uppercase font-body">The Not-Boring Packing App.</p>
+          <p className="text-sm text-muted-foreground mt-2 tracking-widest uppercase font-light font-body">The Not-Boring Packing App.</p>
         </div>
         
         <div 

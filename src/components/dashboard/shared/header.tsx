@@ -36,10 +36,10 @@ export function AppHeader() {
             href={user ? `/${user.role}/dashboard` : '/'}
             className="flex items-center gap-1"
           >
-            <h1 className="flex items-center justify-center gap-1 text-3xl text-foreground tracking-widest font-headline font-light">
-              <span>Basec</span>
-              <Icons.Tent className="text-primary -mb-0.5" size={28} strokeWidth={2.5} />
-              <span>mp</span>
+            <h1 className="flex items-center justify-center gap-1 text-3xl text-foreground tracking-[0.2em] font-headline font-light">
+              <span>BASEC</span>
+              <Icons.Tent className="text-primary -mb-0.5" size={28} strokeWidth={1.5} />
+              <span>MP</span>
             </h1>
           </Link>
           <div className="flex items-center justify-end space-x-4">

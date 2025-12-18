@@ -31,9 +31,18 @@ export function Rave() {
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center animate-[rave-bg_2s_linear_infinite]">
-        <Confetti width={width} height={height} numberOfPieces={600} gravity={0.2} />
+    <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center animate-[rave-bg_2s_linear_infinite] overflow-hidden">
+        <Confetti width={width} height={height} numberOfPieces={800} gravity={0.15} />
         
+        {/* Lasers */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+            <div className="absolute h-full w-1 bg-white/20 -skew-x-12 animate-[laser-sweep-1_4s_linear_infinite]" style={{ animationDelay: '0s' }}></div>
+            <div className="absolute h-full w-1.5 bg-accent/30 -skew-x-12 animate-[laser-sweep-1_4s_linear_infinite]" style={{ animationDelay: '0.2s' }}></div>
+            <div className="absolute h-full w-1 bg-white/20 -skew-x-12 animate-[laser-sweep-2_5s_linear_infinite]" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute h-full w-2 bg-primary/30 -skew-x-12 animate-[laser-sweep-2_5s_linear_infinite]" style={{ animationDelay: '1.3s' }}></div>
+            <div className="absolute w-full h-1.5 bg-destructive/30 animate-[laser-sweep-3_6s_linear_infinite]" style={{ animationDelay: '2s' }}></div>
+        </div>
+
         <div className="relative text-center text-primary-foreground p-8">
             <div className="grid grid-cols-5 gap-8 mb-12">
                 {icons.map((Icon, i) => (

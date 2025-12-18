@@ -154,3 +154,18 @@
     50% { transform: scale(1.2); opacity: 1; }
     100% { transform: scale(1); opacity: 1; }
 }
+
+@keyframes laser-sweep-1 {
+    0% { transform: translate(-100vw, -100vh) rotate(-45deg); }
+    100% { transform: translate(100vw, 100vh) rotate(-45deg); }
+}
+
+@keyframes laser-sweep-2 {
+    0% { transform: translate(100vw, -100vh) rotate(45deg); }
+    100% { transform: translate(-100vw, 100vh) rotate(45deg); }
+}
+
+@keyframes laser-sweep-3 {
+    0% { transform: translateY(-150vh) rotate(15deg); }
+    100% { transform: translateY(150vh) rotate(15deg); }
+}
