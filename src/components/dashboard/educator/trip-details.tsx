@@ -59,7 +59,7 @@ export function TripDetails({ tripId }: { tripId: string }) {
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" />
                 </div>
-                <h2 className="text-3xl font-light leading-tight">{trip.name}</h2>
+                <h2 className="text-3xl font-bold leading-tight font-headline">{trip.name}</h2>
                 <p className="text-base text-muted-foreground flex items-center gap-2">
                     <Icons.Calendar size={16} />
                     {new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

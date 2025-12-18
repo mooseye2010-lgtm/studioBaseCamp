@@ -73,7 +73,7 @@ export function Checklist({ tripId }: { tripId: string }) {
                     </Link>
                 </Button>
                 <div>
-                    <h1 className="font-light text-5xl tracking-tight leading-tight">{trip.name}</h1>
+                    <h1 className="font-headline font-bold text-5xl tracking-tighter leading-tight">{trip.name}</h1>
                     <p className="text-lg text-muted-foreground flex items-center gap-2 mt-2 font-normal">
                         <Icons.Calendar size={16} />
                         {format(new Date(trip.date), 'MMMM d, yyyy')}
@@ -91,7 +91,7 @@ export function Checklist({ tripId }: { tripId: string }) {
                 </section>
 
                 <section className="space-y-4">
-                    <h3 className="text-2xl font-light">Packing List</h3>
+                    <h3 className="text-2xl font-bold font-headline tracking-tight">Packing List</h3>
                     {trip.items.map((item, i) => {
                     const status = statuses.find(s => s.itemId === item.id);
                     if (!status) return null;
@@ -100,7 +100,7 @@ export function Checklist({ tripId }: { tripId: string }) {
                         <div key={item.id} className="animate-fade-in-up" style={{animationDelay: `${i * 50}ms`, animationFillMode: 'backwards'}}>
                             <Card className={cn(
                                 "transition-all duration-300",
-                                status.completed ? 'bg-secondary/70 border-primary/10' : 'bg-card'
+                                status.completed ? 'bg-secondary/70 border-primary/20' : 'bg-card'
                             )}>
                             <CardContent className="p-4 flex items-center gap-4">
                                 <Checkbox
@@ -114,7 +114,7 @@ export function Checklist({ tripId }: { tripId: string }) {
                                     </Label>
                                     {!item.required && <Badge variant="outline" className={cn("w-fit text-xs font-medium", status.completed && "border-muted-foreground/20 text-muted-foreground")}>Optional</Badge>}
                                     {status.educatorComment && (
-                                        <div className="flex items-start gap-2.5 text-sm text-accent-foreground bg-accent/10 border border-accent/20 rounded-lg p-2.5 mt-2">
+                                        <div className="flex items-start gap-2.5 text-sm text-accent-foreground bg-accent/20 border border-accent/30 rounded-lg p-2.5 mt-2">
                                             <Icons.Comment className="h-4 w-4 mt-0.5 shrink-0"/>
                                             <span className="leading-snug font-medium">{status.educatorComment}</span>
                                         </div>
@@ -142,10 +142,10 @@ function Checkbox({ id, checked, onCheckedChange }: { id: string, checked: boole
             role="checkbox"
             aria-checked={checked}
             onClick={() => onCheckedChange(!checked)}
-            className="group h-10 w-10 shrink-0 flex items-center justify-center rounded-lg bg-muted/60 hover:bg-muted transition-all duration-200"
+            className="group h-12 w-12 shrink-0 flex items-center justify-center rounded-lg bg-muted/60 hover:bg-muted transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring"
         >
-            <div className={cn("h-6 w-6 rounded-md border-2 border-foreground/30 flex items-center justify-center transition-all duration-200 group-hover:border-primary", checked && "bg-primary border-primary")}>
-                {checked && <Icons.Check className="h-5 w-5 text-primary-foreground animate-check-in" strokeWidth={3} />}
+            <div className={cn("h-7 w-7 rounded-md border-2 border-foreground/30 flex items-center justify-center transition-all duration-200 group-hover:border-primary", checked && "bg-primary border-primary")}>
+                {checked && <Icons.Check className="h-6 w-6 text-primary-foreground animate-check-in" strokeWidth={3} />}
             </div>
         </button>
     )

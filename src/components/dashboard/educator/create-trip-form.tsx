@@ -90,7 +90,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
             Back to Dashboard
             </Link>
         </Button>
-        <h1 className="text-4xl font-light tracking-tight">
+        <h1 className="text-4xl font-bold tracking-tight font-headline">
           Create New Trip
         </h1>
       </div>
@@ -286,7 +286,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
             >
               Cancel
             </Button>
-            <Button type="submit" size="lg" className="font-medium text-base">
+            <Button type="submit" size="lg" className="font-bold text-lg">
               Create Trip
             </Button>
           </div>

@@ -1,8 +1,14 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { AuthProvider } from '@/lib/auth';
 import { Toaster } from "@/components/ui/toaster";
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: 'Basecamp',
@@ -15,10 +21,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" style={{colorScheme: 'dark'}} suppressHydrationWarning>
       <head />
-      <body className={cn('font-body antialiased bg-background')}>
-         <div className="absolute top-0 left-0 h-96 w-full bg-gradient-to-br from-primary/30 to-accent/30 blur-3xl -z-10" />
+      <body className={cn('font-body antialiased bg-background', inter.variable)}>
         <AuthProvider>
           {children}
           <Toaster />

@@ -32,9 +32,9 @@ export function AppHeader() {
           href={user ? `/${user.role}/dashboard` : '/'}
           className="flex items-center gap-1"
         >
-          <h1 className="flex items-center justify-center gap-1 text-2xl font-light text-foreground tracking-wider">
+          <h1 className="flex items-center justify-center gap-1 text-2xl font-bold text-foreground tracking-tighter font-headline">
             <span>Basec</span>
-            <Icons.Tent className="text-primary -mb-0.5" size={24} strokeWidth={1.5} />
+            <Icons.Tent className="text-primary -mb-0.5" size={24} strokeWidth={2} />
             <span>mp</span>
           </h1>
         </Link>
@@ -42,7 +42,7 @@ export function AppHeader() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-11 w-11 rounded-full">
-                <Avatar className="h-11 w-11 border">
+                <Avatar className="h-11 w-11 border-2 border-muted hover:border-primary transition-colors">
                   <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${user?.name}`} alt={user?.name} />
                   <AvatarFallback className="text-base font-medium">{user ? getInitials(user.name) : 'U'}</AvatarFallback>
                 </Avatar>
@@ -58,7 +58,7 @@ export function AppHeader() {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={logout} className="text-base p-2">
+              <DropdownMenuItem onSelect={logout} className="text-base p-2 cursor-pointer">
                 <Icons.LogOut className="mr-2 h-5 w-5" />
                 <span>Log out</span>
               </DropdownMenuItem>

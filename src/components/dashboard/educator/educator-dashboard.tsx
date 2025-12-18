@@ -27,10 +27,10 @@ export function EducatorDashboard() {
     <div className="container mx-auto max-w-5xl py-8">
         <header className="flex justify-between items-center mb-8">
             <div>
-                <h1 className="text-4xl font-light tracking-tight">Dashboard</h1>
+                <h1 className="text-4xl font-bold tracking-tight font-headline">Dashboard</h1>
                 <p className="text-muted-foreground mt-1">Overview of your expeditions.</p>
             </div>
-            <Button asChild size="lg" className="font-medium text-base">
+            <Button asChild size="lg" className="font-bold text-lg">
                 <Link href="/educator/trip/new">
                     <Icons.PlusCircle className="mr-2 h-5 w-5" />
                     New Trip
@@ -62,12 +62,12 @@ function TripCard({ trip }: { trip: Trip }) {
 
   return (
     <Link href={`/educator/trip/${trip.id}`} className="block group">
-        <Card className="flex items-center overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:border-primary/20">
+        <Card className="flex items-center overflow-hidden transition-all duration-300 ease-in-out hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/50 bg-card/80 backdrop-blur-sm">
              <div className="relative w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0">
                 <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" data-ai-hint={trip.imageHint} />
             </div>
             <div className="flex-1 p-4 sm:p-6">
-                <h2 className="font-medium text-xl sm:text-2xl leading-tight">
+                <h2 className="font-bold text-xl sm:text-2xl leading-tight font-headline">
                     {trip.name}
                 </h2>
                  <div className="flex items-center text-sm text-muted-foreground mt-2">

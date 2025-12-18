@@ -91,7 +91,7 @@ export function LoginForm() {
           name="role"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Role</FormLabel>
+              <FormLabel>I am a...</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -102,7 +102,7 @@ export function LoginForm() {
                     <FormControl>
                       <RadioGroupItem value="educator" id="r1" className="peer sr-only" />
                     </FormControl>
-                    <FormLabel htmlFor="r1" className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full cursor-pointer h-16">
+                    <FormLabel htmlFor="r1" className="flex flex-col items-center justify-center rounded-lg border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full cursor-pointer h-16 text-base font-medium transition-all">
                         Educator
                     </FormLabel>
                   </FormItem>
@@ -110,7 +110,7 @@ export function LoginForm() {
                     <FormControl>
                       <RadioGroupItem value="student" id="r2" className="peer sr-only"/>
                     </FormControl>
-                     <FormLabel htmlFor="r2" className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full cursor-pointer h-16">
+                     <FormLabel htmlFor="r2" className="flex flex-col items-center justify-center rounded-lg border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full cursor-pointer h-16 text-base font-medium transition-all">
                         Student
                     </FormLabel>
                   </FormItem>
@@ -120,9 +120,9 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" size="lg" className="w-full font-medium text-base" disabled={isLoading}>
+        <Button type="submit" size="lg" className="w-full font-bold text-lg tracking-wide">
           {isLoading && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}
-          Sign In
+          Continue
         </Button>
       </form>
     </Form>

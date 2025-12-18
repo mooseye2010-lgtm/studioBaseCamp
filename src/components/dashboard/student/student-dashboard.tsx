@@ -26,7 +26,6 @@ export function StudentDashboard() {
     return null;
   }
   
-  // If there is only one trip, redirect to it
   if (trips.length === 1) {
     if(typeof window !== 'undefined') {
         window.location.href = `/student/trip/${trips[0].id}`;
@@ -37,7 +36,7 @@ export function StudentDashboard() {
   return (
     <div className="container mx-auto max-w-4xl py-8">
         <div className="mb-10 text-center">
-            <h1 className="font-light text-5xl tracking-tight">Your Trips</h1>
+            <h1 className="font-headline font-bold text-5xl tracking-tighter">Your Trips</h1>
         </div>
 
       {trips.length > 0 ? (
@@ -64,12 +63,12 @@ function TripCard({ trip, studentId }: { trip: Trip, studentId: string }) {
 
   return (
     <Link href={`/student/trip/${trip.id}`} className="block group">
-        <Card className="flex items-center overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:border-primary/20">
+        <Card className="flex items-center overflow-hidden transition-all duration-300 ease-in-out hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/50 bg-card/80 backdrop-blur-sm">
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
                 <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" data-ai-hint={trip.imageHint}/>
             </div>
             <div className="flex-1 p-4 sm:p-6 w-full">
-                <h2 className="font-medium text-xl sm:text-2xl leading-tight">
+                <h2 className="font-headline font-bold text-xl sm:text-2xl leading-tight">
                     {trip.name}
                 </h2>
                  <div className="flex items-center text-sm text-muted-foreground mt-2">
