@@ -65,7 +65,7 @@ export function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="uppercase">Email</FormLabel>
+              <FormLabel className="uppercase tracking-wider text-xs font-light">Email</FormLabel>
               <FormControl>
                 <Input placeholder="name@school.edu" {...field} />
               </FormControl>
@@ -78,7 +78,7 @@ export function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="uppercase">Password</FormLabel>
+              <FormLabel className="uppercase tracking-wider text-xs font-light">Password</FormLabel>
               <FormControl>
                 <Input type="password" placeholder="••••••••" {...field} />
               </FormControl>
@@ -91,7 +91,7 @@ export function LoginForm() {
           name="role"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel className="uppercase">I am a...</FormLabel>
+              <FormLabel className="uppercase tracking-wider text-xs font-light">I am a...</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -102,7 +102,7 @@ export function LoginForm() {
                     <FormControl>
                       <RadioGroupItem value="educator" id="r1" className="peer sr-only" />
                     </FormControl>
-                    <FormLabel htmlFor="r1" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/20 peer-data-[state=checked]:text-primary-foreground w-full cursor-pointer h-20 text-lg font-medium transition-all uppercase">
+                    <FormLabel htmlFor="r1" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/20 peer-data-[state=checked]:text-primary-foreground w-full cursor-pointer h-20 text-lg font-medium transition-all uppercase font-body tracking-wider">
                         Educator
                     </FormLabel>
                   </FormItem>
@@ -110,7 +110,7 @@ export function LoginForm() {
                     <FormControl>
                       <RadioGroupItem value="student" id="r2" className="peer sr-only"/>
                     </FormControl>
-                     <FormLabel htmlFor="r2" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/20 peer-data-[state=checked]:text-primary-foreground w-full cursor-pointer h-20 text-lg font-medium transition-all uppercase">
+                     <FormLabel htmlFor="r2" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/20 peer-data-[state=checked]:text-primary-foreground w-full cursor-pointer h-20 text-lg font-medium transition-all uppercase font-body tracking-wider">
                         Student
                     </FormLabel>
                   </FormItem>
@@ -120,7 +120,7 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" size="lg" className="w-full text-lg tracking-wide rounded-full bg-primary text-primary-foreground hover:bg-primary/90 uppercase">
+        <Button type="submit" size="lg" className="w-full text-lg tracking-wider rounded-full bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-body">
           {isLoading && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}
           Continue
         </Button>

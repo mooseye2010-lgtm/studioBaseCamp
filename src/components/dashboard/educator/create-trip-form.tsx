@@ -84,13 +84,13 @@ export function CreateTripForm({ students }: { students: User[] }) {
         <Button asChild variant="ghost" className="mb-4 rounded-full">
             <Link
             href="/educator/dashboard"
-            className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group uppercase font-body"
+            className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group uppercase font-body tracking-wider"
             >
             <Icons.ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
             Back to Dashboard
             </Link>
         </Button>
-        <h1 className="text-5xl tracking-tight font-headline">
+        <h1 className="text-5xl tracking-widest font-headline font-light">
           Create New Trip
         </h1>
       </div>
@@ -104,7 +104,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-lg font-medium uppercase font-body">Trip Name</FormLabel>
+                    <FormLabel className="text-base font-medium uppercase font-body tracking-wider">Trip Name</FormLabel>
                     <FormControl>
                       <Input
                         className="text-lg h-16 rounded-2xl"
@@ -121,14 +121,14 @@ export function CreateTripForm({ students }: { students: User[] }) {
                 name="date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel className="text-lg font-medium uppercase font-body">Departure Date</FormLabel>
+                    <FormLabel className="text-base font-medium uppercase font-body tracking-wider">Departure Date</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
                             variant={'outline'}
                             className={cn(
-                              'w-full sm:w-[280px] justify-start text-left font-normal text-lg h-16 rounded-2xl uppercase font-body',
+                              'w-full sm:w-[280px] justify-start text-left font-normal text-base h-16 rounded-2xl uppercase font-body tracking-wider',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
@@ -157,8 +157,8 @@ export function CreateTripForm({ students }: { students: User[] }) {
               />
                 <Card className="bg-card rounded-3xl">
                     <CardHeader>
-                    <CardTitle className="text-xl font-medium uppercase font-body">Assign Students</CardTitle>
-                    <CardDescription className="uppercase font-body">
+                    <CardTitle className="text-xl font-medium uppercase font-body tracking-wider">Assign Students</CardTitle>
+                    <CardDescription className="uppercase font-body tracking-wider">
                         Select students for this trip.
                     </CardDescription>
                     </CardHeader>
@@ -198,8 +198,8 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                             }}
                                         />
                                         </FormControl>
-                                        <FormLabel className="font-normal text-base flex-1 cursor-pointer uppercase font-body">
-                                        {student.name} <span className="block text-sm text-muted-foreground normal-case">{student.email}</span>
+                                        <FormLabel className="font-normal text-base flex-1 cursor-pointer uppercase font-body tracking-wider">
+                                        {student.name} <span className="block text-sm text-muted-foreground normal-case font-light">{student.email}</span>
                                         </FormLabel>
                                     </FormItem>
                                     );
@@ -207,7 +207,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                 />
                             ))}
                             </div>
-                            <FormMessage className="pt-4 font-medium text-base text-center uppercase font-body">{form.formState.errors.assignedStudentIds?.message}</FormMessage>
+                            <FormMessage className="pt-4 font-medium text-base text-center uppercase font-body tracking-wider">{form.formState.errors.assignedStudentIds?.message}</FormMessage>
                         </FormItem>
                         )}
                     />
@@ -216,7 +216,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
             </div>
             <div className="space-y-6">
                 <div>
-                     <h2 className="text-lg font-medium mb-4 uppercase font-body">Packing List Items</h2>
+                     <h2 className="text-base font-medium mb-4 uppercase font-body tracking-wider">Packing List Items</h2>
                      <div className="space-y-3">
                         {fields.map((field, index) => (
                             <div
@@ -246,7 +246,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                         onCheckedChange={field.onChange}
                                     />
                                     </FormControl>
-                                    <FormLabel className="text-xs text-muted-foreground font-normal uppercase font-body">Required</FormLabel>
+                                    <FormLabel className="text-xs text-muted-foreground font-normal uppercase font-body tracking-wider">Required</FormLabel>
                                 </FormItem>
                                 )}
                             />
@@ -264,13 +264,13 @@ export function CreateTripForm({ students }: { students: User[] }) {
                             </div>
                         ))}
                      </div>
-                     <FormMessage className="pt-2 font-medium uppercase font-body">{form.formState.errors.items?.message}</FormMessage>
+                     <FormMessage className="pt-2 font-medium uppercase font-body tracking-wider">{form.formState.errors.items?.message}</FormMessage>
                 </div>
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => append({ name: '', required: true })}
-                className="w-full h-14 text-base font-medium rounded-full uppercase font-body"
+                className="w-full h-14 text-base font-medium rounded-full uppercase font-body tracking-wider"
               >
                 <Icons.PlusCircle className="mr-2 h-5 w-5" />
                 Add Item
@@ -282,12 +282,12 @@ export function CreateTripForm({ students }: { students: User[] }) {
               type="button"
               variant="ghost"
               size="lg"
-              className="rounded-full uppercase font-body"
+              className="rounded-full uppercase font-body tracking-wider"
               onClick={() => router.push('/educator/dashboard')}
             >
               Cancel
             </Button>
-            <Button type="submit" size="lg" className="text-lg rounded-full uppercase font-body">
+            <Button type="submit" size="lg" className="text-lg rounded-full uppercase font-body tracking-wider">
               Create Trip
             </Button>
           </div>

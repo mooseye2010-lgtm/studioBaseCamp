@@ -36,7 +36,7 @@ export function AppHeader() {
             href={user ? `/${user.role}/dashboard` : '/'}
             className="flex items-center gap-1"
           >
-            <h1 className="flex items-center justify-center gap-1 text-3xl text-foreground tracking-tighter font-headline">
+            <h1 className="flex items-center justify-center gap-1 text-3xl text-foreground tracking-widest font-headline font-light">
               <span>Basec</span>
               <Icons.Tent className="text-primary -mb-0.5" size={28} strokeWidth={2.5} />
               <span>mp</span>
@@ -55,18 +55,18 @@ export function AppHeader() {
               <DropdownMenuContent className="w-72 rounded-2xl" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1 p-2">
-                    <p className="text-base font-medium leading-none uppercase font-body">{user?.name}</p>
+                    <p className="text-base font-medium leading-none uppercase font-body tracking-wider">{user?.name}</p>
                     <p className="text-sm leading-none text-muted-foreground">
                       {user?.email}
                     </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={() => setIsSettingsOpen(true)} className="text-base p-3 cursor-pointer rounded-lg uppercase font-body">
+                <DropdownMenuItem onSelect={() => setIsSettingsOpen(true)} className="text-base p-3 cursor-pointer rounded-lg uppercase font-body tracking-wider">
                     <Icons.Settings className="mr-3 h-5 w-5" />
                     <span>Settings</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={logout} className="text-base p-3 cursor-pointer rounded-lg uppercase font-body">
+                <DropdownMenuItem onSelect={logout} className="text-base p-3 cursor-pointer rounded-lg uppercase font-body tracking-wider">
                   <Icons.LogOut className="mr-3 h-5 w-5" />
                   <span>Log out</span>
                 </DropdownMenuItem>

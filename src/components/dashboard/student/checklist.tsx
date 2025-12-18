@@ -16,12 +16,14 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
+import { Rave } from './rave';
 
 export function Checklist({ tripId }: { tripId: string }) {
   const { user } = useAuth();
   const [trip, setTrip] = useState<Trip | null>(null);
   const [statuses, setStatuses] = useState<StudentChecklistItemStatus[]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [showRave, setShowRave] = useState(false);
   const { width, height } = useWindowSize();
 
   useEffect(() => {
@@ -34,6 +36,23 @@ export function Checklist({ tripId }: { tripId: string }) {
       setTrip(null);
     }
   }, [tripId, user]);
+  
+  const completionPercentage = useMemo(() => {
+    if (!trip) return 0;
+    const requiredItems = trip.items.filter(item => item.required);
+    if(requiredItems.length === 0) return 100;
+    const completedRequiredItems = statuses.filter(s => {
+        const item = requiredItems.find(i => i.id === s.itemId);
+        return item && s.completed;
+    }).length;
+    return Math.round((completedRequiredItems / requiredItems.length) * 100);
+  }, [statuses, trip]);
+  
+  useEffect(() => {
+      if (completionPercentage === 100) {
+          setShowRave(true);
+      }
+  }, [completionPercentage]);
 
   const handleCheckedChange = (itemId: string, checked: boolean) => {
     const newStatuses = statuses.map(s => s.itemId === itemId ? { ...s, completed: checked } : s);
@@ -45,36 +64,26 @@ export function Checklist({ tripId }: { tripId: string }) {
     }
   };
 
-  const completionPercentage = useMemo(() => {
-    if (!trip) return 0;
-    const requiredItems = trip.items.filter(item => item.required);
-    if(requiredItems.length === 0) return 100;
-    const completedRequiredItems = statuses.filter(s => {
-        const item = requiredItems.find(i => i.id === s.itemId);
-        return item && s.completed;
-    }).length;
-    return Math.round((completedRequiredItems / requiredItems.length) * 100);
-  }, [statuses, trip]);
-
   if (!user || !trip) {
-    return <p className="uppercase font-body">Loading checklist...</p>;
+    return <p className="uppercase font-body tracking-wider">Loading checklist...</p>;
   }
 
   return (
     <div className="animate-float-in">
-       {showConfetti && <Confetti width={width} height={height} recycle={false} numberOfPieces={200} gravity={0.1} colors={['#FBBF24', '#D4AF37', '#C0C0C0']} />}
+       {showConfetti && !showRave && <Confetti width={width} height={height} recycle={false} numberOfPieces={200} gravity={0.1} colors={['#FBBF24', '#D4AF37', '#C0C0C0']} />}
+       {showRave && <Rave />}
        
        <div className="container mx-auto max-w-3xl py-12">
             <header className="mb-12 space-y-3">
                 <Button asChild variant="ghost" className="px-0 rounded-full">
-                    <Link href="/student/dashboard" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group w-fit uppercase font-body">
+                    <Link href="/student/dashboard" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group w-fit uppercase font-body tracking-wider">
                         <Icons.ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
                         All Trips
                     </Link>
                 </Button>
                 <div>
-                    <h1 className="font-headline tracking-tighter leading-tight text-6xl">{trip.name}</h1>
-                    <p className="text-xl text-muted-foreground flex items-center gap-2 mt-3 font-normal uppercase font-body">
+                    <h1 className="font-headline tracking-widest font-light leading-tight text-6xl">{trip.name}</h1>
+                    <p className="text-xl text-muted-foreground flex items-center gap-2 mt-3 font-normal uppercase font-body tracking-wider">
                         <Icons.Calendar size={18} />
                         {format(new Date(trip.date), 'MMMM d, yyyy')}
                     </p>
@@ -84,14 +93,14 @@ export function Checklist({ tripId }: { tripId: string }) {
             <main className="space-y-12">
                 <section>
                     <div className="flex justify-between items-end mb-2">
-                        <h2 className="text-base font-medium text-muted-foreground tracking-wider uppercase font-body">Your Progress</h2>
-                        <span className="font-semibold text-2xl text-primary uppercase font-body">{completionPercentage}%</span>
+                        <h2 className="text-xs font-medium text-muted-foreground tracking-wider uppercase font-body">Your Progress</h2>
+                        <span className="font-semibold text-2xl text-primary uppercase font-body tracking-wider">{completionPercentage}%</span>
                     </div>
                     <Progress value={completionPercentage} className="h-3 rounded-full"/>
                 </section>
 
                 <section className="space-y-4">
-                    <h3 className="text-3xl font-headline tracking-tight">Packing List</h3>
+                    <h3 className="text-3xl font-headline tracking-widest font-light">Packing List</h3>
                     {trip.items.map((item, i) => {
                     const status = statuses.find(s => s.itemId === item.id);
                     if (!status) return null;
@@ -109,14 +118,14 @@ export function Checklist({ tripId }: { tripId: string }) {
                                     onCheckedChange={(checked) => handleCheckedChange(item.id, !!checked)}
                                 />
                                 <div className="flex-1 grid gap-1.5">
-                                    <Label htmlFor={`item-${item.id}`} className={cn("font-medium text-xl cursor-pointer transition-colors uppercase font-body", status.completed && "line-through text-muted-foreground")}>
+                                    <Label htmlFor={`item-${item.id}`} className={cn("font-medium text-lg cursor-pointer transition-colors uppercase font-body tracking-wider", status.completed && "line-through text-muted-foreground")}>
                                         {item.name}
                                     </Label>
-                                    {!item.required && <Badge variant="outline" className={cn("w-fit text-xs font-medium rounded-md uppercase font-body", status.completed && "border-muted-foreground/20 text-muted-foreground")}>Optional</Badge>}
+                                    {!item.required && <Badge variant="outline" className={cn("w-fit text-xs font-medium rounded-md uppercase font-body tracking-wider", status.completed && "border-muted-foreground/20 text-muted-foreground")}>Optional</Badge>}
                                     {status.educatorComment && (
                                         <div className="flex items-start gap-2.5 text-sm text-amber-200 bg-amber-500/20 border border-amber-500/30 rounded-xl p-3 mt-2">
                                             <Icons.Comment className="h-4 w-4 mt-0.5 shrink-0"/>
-                                            <span className="leading-snug font-medium uppercase font-body">{status.educatorComment}</span>
+                                            <span className="leading-snug font-medium uppercase font-body tracking-wider text-xs">{status.educatorComment}</span>
                                         </div>
                                     )}
                                 </div>
@@ -171,7 +180,7 @@ function EducatorApprovalStatus({ status }: { status: boolean | null }) {
                 <TooltipTrigger>
                     <Icon className={`h-8 w-8 ${color} transition-transform duration-300 ease-in-out hover:scale-110`} />
                 </TooltipTrigger>
-                <TooltipContent className="rounded-lg uppercase font-body">
+                <TooltipContent className="rounded-lg uppercase font-body tracking-wider">
                     <p>{tooltip}</p>
                 </TooltipContent>
             </Tooltip>

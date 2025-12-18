@@ -13,12 +13,12 @@ export default function Home() {
           className="mb-12 animate-float-in animate-gentle-float" 
           style={{ animationDelay: '200ms', animationFillMode: 'backwards' }}
         >
-          <h1 className="flex items-center justify-center gap-1 text-6xl text-foreground/90 tracking-tighter font-headline">
+          <h1 className="flex items-center justify-center gap-1 text-6xl text-foreground/90 tracking-widest font-headline font-light">
             <span>Basec</span>
             <Tent className="text-primary -mb-1" size={48} strokeWidth={2} />
             <span>mp</span>
           </h1>
-          <p className="text-xl text-muted-foreground mt-2 tracking-tight uppercase font-body">The Not-Boring Packing App.</p>
+          <p className="text-lg text-muted-foreground mt-2 tracking-wider uppercase font-body">The Not-Boring Packing App.</p>
         </div>
         
         <div 
@@ -27,7 +27,7 @@ export default function Home() {
         >
             <Card className="text-left bg-card/80 backdrop-blur-xl border-border/20 shadow-2xl shadow-black/30 rounded-[2rem]">
               <CardHeader>
-                <CardTitle className="text-xl font-normal text-center text-foreground tracking-wide uppercase font-body">
+                <CardTitle className="text-xl font-light text-center text-foreground tracking-wider uppercase font-body">
                     Sign In
                 </CardTitle>
               </CardHeader>
