@@ -16,16 +16,20 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 export function SettingsDialog({ open, onOpenChange }: { open: boolean, onOpenChange: (open: boolean) => void }) {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState(theme);
 
   useEffect(() => {
+    setMounted(true)
     if (open) {
       setSelectedTheme(theme);
     }
   }, [open, theme]);
+
 
   const handleSaveChanges = () => {
     if (selectedTheme) {
@@ -33,6 +37,8 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean, onOpenCh
     }
     onOpenChange(false);
   };
+  
+  if (!mounted) return null;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -47,24 +53,9 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean, onOpenCh
             <div className="space-y-4">
                 <h3 className="font-semibold text-base uppercase font-body tracking-wider">Appearance</h3>
                  <RadioGroup value={selectedTheme} onValueChange={setSelectedTheme} className="grid grid-cols-3 gap-4">
-                    <div>
-                        <RadioGroupItem value="light" id="light" className="peer sr-only" />
-                        <Label htmlFor="light" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/20 peer-data-[state=checked]:text-primary-foreground w-full cursor-pointer h-20 text-lg font-medium transition-all uppercase font-body tracking-wider">
-                           <Icons.Sun className="mb-2"/> Light
-                        </Label>
-                    </div>
-                     <div>
-                        <RadioGroupItem value="dark" id="dark" className="peer sr-only" />
-                        <Label htmlFor="dark" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/20 peer-data-[state=checked]:text-primary-foreground w-full cursor-pointer h-20 text-lg font-medium transition-all uppercase font-body tracking-wider">
-                           <Icons.Moon className="mb-2"/> Dark
-                        </Label>
-                    </div>
-                     <div>
-                        <RadioGroupItem value="system" id="system" className="peer sr-only" />
-                        <Label htmlFor="system" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/20 peer-data-[state=checked]:text-primary-foreground w-full cursor-pointer h-20 text-lg font-medium transition-all uppercase font-body tracking-wider">
-                           <Icons.System className="mb-2"/> System
-                        </Label>
-                    </div>
+                    <ThemeRadioOption value="light" icon={Icons.Sun} label="Light" />
+                    <ThemeRadioOption value="dark" icon={Icons.Moon} label="Dark" />
+                    <ThemeRadioOption value="system" icon={Icons.System} label="System" />
                 </RadioGroup>
             </div>
             <div className="space-y-4">
@@ -98,5 +89,25 @@ export function SettingsDialog({ open, onOpenChange }: { open: boolean, onOpenCh
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+}
+
+
+export function ThemeRadioOption({ value, icon: Icon, label }: { value: string, icon: React.ElementType, label: string }) {
+  return (
+    <div>
+      <RadioGroupItem value={value} id={value} className="peer sr-only" />
+      <Label
+        htmlFor={value}
+        className={cn(
+          'flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 transition-all',
+          'hover:bg-accent hover:text-accent-foreground',
+          'peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/20 peer-data-[state=checked]:text-primary-foreground',
+          'w-full cursor-pointer h-20 text-lg font-medium uppercase font-body tracking-wider'
+        )}
+      >
+        <Icon className="mb-2" /> {label}
+      </Label>
+    </div>
   );
 }
