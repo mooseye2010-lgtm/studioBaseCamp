@@ -36,7 +36,7 @@ export function AppHeader() {
             href={user ? `/${user.role}/dashboard` : '/'}
             className="flex items-center gap-1"
           >
-            <h1 className="flex items-center justify-center gap-1 text-3xl font-bold text-foreground tracking-tighter font-headline">
+            <h1 className="flex items-center justify-center gap-1 text-3xl text-foreground tracking-tighter font-headline">
               <span>Basec</span>
               <Icons.Tent className="text-primary -mb-0.5" size={28} strokeWidth={2.5} />
               <span>mp</span>
@@ -48,25 +48,25 @@ export function AppHeader() {
                 <Button variant="ghost" className="relative h-14 w-14 rounded-full">
                   <Avatar className="h-14 w-14 border-2 border-muted hover:border-primary transition-colors">
                     <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${user?.name}`} alt={user?.name} />
-                    <AvatarFallback className="text-lg font-medium">{user ? getInitials(user.name) : 'U'}</AvatarFallback>
+                    <AvatarFallback className="text-lg font-medium uppercase">{user ? getInitials(user.name) : 'U'}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-72 rounded-2xl" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1 p-2">
-                    <p className="text-base font-medium leading-none">{user?.name}</p>
+                    <p className="text-base font-medium leading-none uppercase font-body">{user?.name}</p>
                     <p className="text-sm leading-none text-muted-foreground">
                       {user?.email}
                     </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={() => setIsSettingsOpen(true)} className="text-base p-3 cursor-pointer rounded-lg">
+                <DropdownMenuItem onSelect={() => setIsSettingsOpen(true)} className="text-base p-3 cursor-pointer rounded-lg uppercase font-body">
                     <Icons.Settings className="mr-3 h-5 w-5" />
                     <span>Settings</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={logout} className="text-base p-3 cursor-pointer rounded-lg">
+                <DropdownMenuItem onSelect={logout} className="text-base p-3 cursor-pointer rounded-lg uppercase font-body">
                   <Icons.LogOut className="mr-3 h-5 w-5" />
                   <span>Log out</span>
                 </DropdownMenuItem>

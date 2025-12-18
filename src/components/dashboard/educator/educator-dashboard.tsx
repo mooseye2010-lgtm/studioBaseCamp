@@ -34,10 +34,10 @@ export function EducatorDashboard() {
     <div className="container mx-auto max-w-5xl py-12 flex flex-col h-full">
         <header className="flex justify-between items-center mb-10">
             <div>
-                <h1 className="text-5xl font-bold tracking-tighter font-headline">Dashboard</h1>
-                <p className="text-muted-foreground mt-2 text-lg">Overview of your expeditions.</p>
+                <h1 className="text-5xl tracking-tighter font-headline">Dashboard</h1>
+                <p className="text-muted-foreground mt-2 text-lg uppercase font-body">Overview of your expeditions.</p>
             </div>
-            <Button asChild size="lg" className="font-bold text-lg rounded-full">
+            <Button asChild size="lg" className="text-lg rounded-full uppercase font-body">
                 <Link href="/educator/trip/new">
                     <Icons.PlusCircle className="mr-2 h-5 w-5" />
                     New Trip
@@ -66,8 +66,8 @@ export function EducatorDashboard() {
       ) : (
         <div className="text-center p-16 border-2 border-dashed rounded-3xl animate-float-in flex-1 flex flex-col justify-center items-center">
             <Icons.List className="h-16 w-16 text-muted-foreground mx-auto mb-6" />
-            <h3 className="text-3xl font-medium">No trips yet</h3>
-            <p className="max-w-md mx-auto mt-3 text-muted-foreground text-lg">Get started by creating a new trip for your students.</p>
+            <h3 className="text-3xl font-medium uppercase font-body">No trips yet</h3>
+            <p className="max-w-md mx-auto mt-3 text-muted-foreground text-lg uppercase font-body">Get started by creating a new trip for your students.</p>
         </div>
       )}
     </div>
@@ -77,8 +77,8 @@ export function EducatorDashboard() {
 function TripListItem({ trip, isActive }: { trip: Trip, isActive: boolean }) {
     return (
         <Card className={`p-4 cursor-pointer transition-all duration-300 rounded-2xl border-2 ${isActive ? 'border-primary bg-primary/10' : 'border-border bg-card hover:bg-secondary'}`}>
-            <h3 className="font-semibold text-lg">{trip.name}</h3>
-            <div className="flex items-center text-sm text-muted-foreground mt-1">
+            <h3 className="font-semibold text-lg uppercase font-body">{trip.name}</h3>
+            <div className="flex items-center text-sm text-muted-foreground mt-1 uppercase font-body">
                 <Icons.Calendar className="mr-2 h-4 w-4" />
                 <span>{new Date(trip.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</span>
             </div>
@@ -100,12 +100,12 @@ function TripCard({ trip }: { trip: Trip }) {
                 <h2 className="font-bold text-2xl sm:text-3xl leading-tight font-headline">
                     {trip.name}
                 </h2>
-                 <div className="flex items-center text-md text-muted-foreground mt-2">
+                 <div className="flex items-center text-md text-muted-foreground mt-2 uppercase font-body">
                     <Icons.Calendar className="mr-2 h-4 w-4" />
                     <span>{new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </div>
                 <div className="mt-6">
-                    <div className="flex justify-between items-center mb-1 text-sm">
+                    <div className="flex justify-between items-center mb-1 text-sm uppercase font-body">
                         <span className="font-medium text-muted-foreground">Overall Progress</span>
                         <span className="font-semibold text-primary text-base">{progress}%</span>
                     </div>

@@ -42,8 +42,8 @@ export function StudentDashboard() {
         <div className="flex items-center justify-center h-full text-center p-8">
             <div className="animate-float-in">
                 <Icons.Checklist className="h-24 w-24 text-muted-foreground mx-auto mb-6" />
-                <h3 className="text-3xl font-bold">No trips assigned yet.</h3>
-                <p className="max-w-md mx-auto mt-3 text-muted-foreground text-lg">Check back later. An educator will assign you to a trip soon!</p>
+                <h3 className="text-3xl">No trips assigned yet.</h3>
+                <p className="max-w-md mx-auto mt-3 text-muted-foreground text-lg uppercase font-body">Check back later. An educator will assign you to a trip soon!</p>
             </div>
         </div>
     );
@@ -63,7 +63,7 @@ export function StudentDashboard() {
   }
 
   return (
-    <div className="flex flex-col h-full w-full items-center pt-20 p-4 relative overflow-hidden">
+    <div className="flex flex-col h-full w-full items-center justify-center p-4 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-4xl max-h-4xl bg-primary/10 rounded-full blur-3xl -z-10" />
 
         <div className="relative w-full max-w-md" style={{ perspective: '1000px'}}>
@@ -112,16 +112,16 @@ function TripCard({ trip, studentId }: { trip: Trip, studentId: string }) {
             </div>
             <div className="flex flex-col flex-1 p-8 w-full justify-end">
                 <div className="text-center">
-                    <h2 className="font-headline font-bold text-4xl leading-tight">
+                    <h2 className="font-headline text-4xl leading-tight">
                         {trip.name}
                     </h2>
-                    <div className="flex items-center justify-center text-md text-muted-foreground mt-3">
+                    <div className="flex items-center justify-center text-md text-muted-foreground mt-3 uppercase font-body">
                         <Icons.Calendar className="mr-2 h-4 w-4" />
                         <span>{format(new Date(trip.date), 'MMMM d, yyyy')}</span>
                     </div>
                 </div>
                 <div className="mt-8">
-                  <div className="flex justify-between items-center mb-1 text-sm">
+                  <div className="flex justify-between items-center mb-1 text-sm uppercase font-body">
                       <span className="font-medium text-muted-foreground">Your Progress</span>
                       <span className="font-semibold text-primary">{progress}%</span>
                   </div>

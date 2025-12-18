@@ -31,27 +31,27 @@ export function TripDetails({ tripId }: { tripId: string }) {
   }, [tripId]);
 
   if (trip === null) {
-    return <p>Loading trip details...</p>;
+    return <p className="uppercase font-body">Loading trip details...</p>;
   }
 
   return (
     <div className="animate-float-in container mx-auto max-w-6xl py-12">
         <div className="mb-8">
             <Button asChild variant="ghost" className="px-0 rounded-full group">
-                <Link href="/educator/dashboard" className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 ">
+                <Link href="/educator/dashboard" className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 uppercase font-body">
                     <Icons.ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
                     All Trips
                 </Link>
             </Button>
-            <h2 className="text-4xl font-bold leading-tight font-headline mt-2">{trip.name}</h2>
-            <p className="text-lg text-muted-foreground flex items-center gap-2 mt-1">
+            <h2 className="text-4xl leading-tight font-headline mt-2">{trip.name}</h2>
+            <p className="text-lg text-muted-foreground flex items-center gap-2 mt-1 uppercase font-body">
                 <Icons.Calendar size={18} />
                 {new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-1 space-y-3">
-                 <h3 className="text-xl font-semibold px-2">Student Progress</h3>
+                 <h3 className="text-xl font-semibold px-2 uppercase font-body">Student Progress</h3>
                  {students.map((student, i) => (
                     <div key={student.id} style={{animationDelay: `${i * 70}ms`, animationFillMode: 'backwards'}} className="animate-fade-in-up">
                         <StudentProgressItem student={student} tripId={tripId} onSelect={() => setSelectedStudent(student)} isActive={selectedStudent?.id === student.id} />
@@ -83,10 +83,10 @@ function StudentProgressItem({ student, tripId, onSelect, isActive }: { student:
         <AvatarFallback>{getInitials(student.name)}</AvatarFallback>
       </Avatar>
       <div className="flex-1">
-        <p className="font-medium text-lg">{student.name}</p>
+        <p className="font-medium text-lg uppercase font-body">{student.name}</p>
         <div className="flex items-center gap-3 mt-1">
              <Progress value={progress} className="h-2 rounded-full flex-1" />
-             <span className="font-semibold text-md text-accent w-14 text-right">{progress}%</span>
+             <span className="font-semibold text-md text-accent w-14 text-right uppercase font-body">{progress}%</span>
         </div>
       </div>
        <Icons.ChevronRight className={`h-6 w-6 text-muted-foreground transition-transform ${isActive ? 'translate-x-1' : 'group-hover:translate-x-1'}`} />
