@@ -51,7 +51,7 @@ export function TripDetails({ tripId }: { tripId: string }) {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-1 space-y-3">
-                 <h3 className="text-xl font-semibold px-2 uppercase font-body">Student Progress</h3>
+                 <h3 className="text-xl font-light px-2 uppercase font-body">Student Progress</h3>
                  {students.map((student, i) => (
                     <div key={student.id} style={{animationDelay: `${i * 70}ms`, animationFillMode: 'backwards'}} className="animate-fade-in-up">
                         <StudentProgressItem student={student} tripId={tripId} onSelect={() => setSelectedStudent(student)} isActive={selectedStudent?.id === student.id} />

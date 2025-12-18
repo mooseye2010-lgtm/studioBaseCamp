@@ -37,15 +37,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(false);
   }, []);
 
-  useEffect(() => {
-    if (!loading && !user && pathname !== '/') {
-        router.push('/');
-    }
-    if (!loading && user && pathname === '/') {
-        router.push(`/${user.role}/dashboard`);
-    }
-  }, [user, loading, pathname, router]);
-
   const login = (email: string, role: 'educator' | 'student'): boolean => {
     let foundUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.role === role);
     
@@ -59,27 +50,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       };
       users.push(newUser);
       foundUser = newUser;
-
-      if(role === 'student') {
-        trips.forEach(trip => {
-          if (!trip.assignedStudentIds.includes(newUser.id)) {
-            trip.assignedStudentIds.push(newUser.id);
-          }
-
-          const existingProgress = studentProgress.find(p => p.tripId === trip.id && p.studentId === newUser.id);
-          if (!existingProgress) {
-            studentProgress.push({
-              studentId: newUser.id,
-              tripId: trip.id,
-              itemStatuses: trip.items.map(item => ({
-                itemId: item.id,
-                completed: false,
-                educatorApproved: null,
-              }))
-            })
-          }
-        });
-      }
     }
     
     setUser(foundUser);
