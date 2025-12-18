@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['"PT Sans"', 'sans-serif'],
-        headline: ['"PT Sans"', 'sans-serif'],
+        body: ['"Gaegu"', 'sans-serif'],
+        headline: ['"Gaegu"', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
