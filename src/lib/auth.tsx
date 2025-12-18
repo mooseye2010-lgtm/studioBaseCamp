@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import type { User } from './types';
-import { users } from './data';
+import { users, trips, studentProgress } from './data';
 import { LoadingSpinner } from '@/components/loading-spinner';
 
 interface AuthContextType {
@@ -51,12 +51,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     
     if (!foundUser) {
       const name = email.split('@')[0].replace(/[^a-zA-Z]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-      foundUser = {
+      const newUser: User = {
         id: `user-${Date.now()}`,
         name: name || 'New User',
         email: email,
         role: role,
       };
+      users.push(newUser);
+      foundUser = newUser;
+
+      if(role === 'student') {
+        trips.forEach(trip => {
+          if (!trip.assignedStudentIds.includes(newUser.id)) {
+            trip.assignedStudentIds.push(newUser.id);
+          }
+
+          const existingProgress = studentProgress.find(p => p.tripId === trip.id && p.studentId === newUser.id);
+          if (!existingProgress) {
+            studentProgress.push({
+              studentId: newUser.id,
+              tripId: trip.id,
+              itemStatuses: trip.items.map(item => ({
+                itemId: item.id,
+                completed: false,
+                educatorApproved: null,
+              }))
+            })
+          }
+        });
+      }
     }
     
     setUser(foundUser);

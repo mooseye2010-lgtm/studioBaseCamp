@@ -21,7 +21,7 @@ export const trips: Trip[] = [
     date: '2024-10-15',
     imageUrl: yosemiteImage.imageUrl,
     imageHint: yosemiteImage.imageHint,
-    assignedStudentIds: ['user-2', 'user-3'],
+    assignedStudentIds: ['user-2', 'user-3', 'user-5'],
     items: [
       { id: 'item-1-1', name: 'Water Bottle (2L)', required: true },
       { id: 'item-1-2', name: 'Sunscreen (SPF 30+)', required: true },
@@ -37,7 +37,7 @@ export const trips: Trip[] = [
     date: '2024-11-05',
     imageUrl: zionImage.imageUrl,
     imageHint: zionImage.imageHint,
-    assignedStudentIds: ['user-2', 'user-5'],
+    assignedStudentIds: ['user-2', 'user-3', 'user-5'],
     items: [
       { id: 'item-2-1', name: 'Wide-brimmed Hat', required: true },
       { id: 'item-2-2', name: 'Sunglasses', required: true },
@@ -106,4 +106,26 @@ export const studentProgress: StudentTripProgress[] = [
       { itemId: 'item-2-4', completed: false, educatorApproved: null },
     ],
   },
+  {
+    studentId: 'user-3',
+    tripId: 'trip-2',
+    itemStatuses: [
+      { itemId: 'item-2-1', completed: false, educatorApproved: null },
+      { itemId: 'item-2-2', completed: false, educatorApproved: null },
+      { itemId: 'item-2-3', completed: false, educatorApproved: null },
+      { itemId: 'item-2-4', completed: false, educatorApproved: null },
+    ],
+  },
+  {
+    studentId: 'user-5',
+    tripId: 'trip-1',
+    itemStatuses: [
+        { itemId: 'item-1-1', completed: false, educatorApproved: null },
+        { itemId: 'item-1-2', completed: false, educatorApproved: null },
+        { itemId: 'item-1-3', completed: false, educatorApproved: null },
+        { itemId: 'item-1-4', completed: false, educatorApproved: null },
+        { itemId: 'item-1-5', completed: false, educatorApproved: null },
+        { itemId: 'item-1-6', completed: false, educatorApproved: null },
+    ]
+  }
 ];
