@@ -44,7 +44,7 @@ export function Checklist({ tripId }: { tripId: string }) {
 
     if (checked) {
         setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 4000); // Confetti for 4 seconds
+        setTimeout(() => setShowConfetti(false), 5000); // Confetti for 5 seconds
     }
   };
 
@@ -65,7 +65,7 @@ export function Checklist({ tripId }: { tripId: string }) {
 
   return (
     <div className="space-y-6">
-       {showConfetti && <Confetti width={width} height={height} recycle={false} numberOfPieces={400} />}
+       {showConfetti && <Confetti width={width} height={height} recycle={false} numberOfPieces={600} gravity={0.1} />}
        <div>
         <Link href="/student/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
             <Icons.ArrowLeft size={16} />
