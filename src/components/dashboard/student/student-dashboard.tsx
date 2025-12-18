@@ -63,7 +63,7 @@ export function StudentDashboard() {
   }
 
   return (
-    <div className="flex flex-col h-full w-full items-center justify-center p-4 relative overflow-hidden">
+    <div className="flex flex-col h-full w-full items-center pt-20 p-4 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-4xl max-h-4xl bg-primary/10 rounded-full blur-3xl -z-10" />
 
         <div className="relative w-full max-w-md" style={{ perspective: '1000px'}}>
