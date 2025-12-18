@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useAuth } from '@/lib/auth';
@@ -32,8 +33,10 @@ export function AppHeader() {
     <>
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-lg">
         <div className="container flex h-24 items-center justify-between">
-          <div className="w-14"></div>
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-start">
+            {/* This space is intentionally left empty to balance the user avatar on the right */}
+          </div>
+          <div className="flex-shrink-0">
              <Link
                 href={user ? `/${user.role}/dashboard` : '/'}
                 className="flex items-center gap-1 bg-card/50 px-6 py-2 rounded-full border border-border/50"
@@ -45,7 +48,7 @@ export function AppHeader() {
                 </h1>
               </Link>
           </div>
-          <div className="flex items-center justify-end">
+          <div className="flex-1 flex items-center justify-end">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-14 w-14 rounded-full">
