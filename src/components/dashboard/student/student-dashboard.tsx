@@ -88,7 +88,7 @@ export function StudentDashboard() {
             })}
         </div>
         
-        <div className="absolute bottom-12 flex items-center gap-4">
+        <div className="mt-8 flex items-center gap-4">
             <Button onClick={handlePrev} variant="outline" size="icon" className="rounded-full h-14 w-14 bg-card/50 backdrop-blur-md">
                 <Icons.ArrowLeft className="h-6 w-6" />
             </Button>
@@ -108,7 +108,7 @@ function TripCard({ trip, studentId }: { trip: Trip, studentId: string }) {
         <Card className="relative flex flex-col h-full overflow-hidden transition-all duration-500 ease-in-out shadow-2xl shadow-black/30 hover:shadow-primary/20 bg-card/80 backdrop-blur-xl rounded-[2.5rem] group-hover:scale-[1.03] group-hover:-translate-y-2 border-border/20">
             <div className="relative w-full h-1/2 flex-shrink-0">
                 <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" data-ai-hint={trip.imageHint}/>
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/70 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/40 to-transparent" />
             </div>
             <div className="flex flex-col flex-1 p-8 w-full justify-end">
                 <div className="text-center">

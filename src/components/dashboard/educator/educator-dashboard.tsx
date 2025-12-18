@@ -94,7 +94,7 @@ function TripCard({ trip }: { trip: Trip }) {
         <Card className="flex flex-col overflow-hidden transition-all duration-500 ease-in-out hover:shadow-2xl hover:shadow-primary/20 hover:border-primary/50 bg-card/80 backdrop-blur-sm rounded-3xl hover:scale-[1.01] hover:-translate-y-1">
              <div className="relative w-full h-64 flex-shrink-0">
                 <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" data-ai-hint={trip.imageHint} />
-                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/40 to-transparent" />
             </div>
             <div className="flex-1 p-6 sm:p-8">
                 <h2 className="font-headline tracking-widest font-light text-2xl sm:text-3xl leading-tight">

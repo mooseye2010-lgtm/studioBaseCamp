@@ -24,6 +24,7 @@ export function Checklist({ tripId }: { tripId: string }) {
   const [statuses, setStatuses] = useState<StudentChecklistItemStatus[]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showRave, setShowRave] = useState(false);
+  const [progressSent, setProgressSent] = useState(false);
   const { width, height } = useWindowSize();
 
   useEffect(() => {
@@ -49,10 +50,14 @@ export function Checklist({ tripId }: { tripId: string }) {
   }, [statuses, trip]);
   
   useEffect(() => {
-      if (completionPercentage === 100) {
+      if (completionPercentage === 100 && !progressSent) {
           setShowRave(true);
+          setTimeout(() => {
+            setShowRave(false);
+            setProgressSent(true);
+          }, 5000);
       }
-  }, [completionPercentage]);
+  }, [completionPercentage, progressSent]);
 
   const handleCheckedChange = (itemId: string, checked: boolean) => {
     const newStatuses = statuses.map(s => s.itemId === itemId ? { ...s, completed: checked } : s);
@@ -98,6 +103,13 @@ export function Checklist({ tripId }: { tripId: string }) {
                     </div>
                     <Progress value={completionPercentage} className="h-3 rounded-full"/>
                 </section>
+
+                {progressSent && (
+                    <div className="p-8 bg-secondary/70 rounded-3xl text-center animate-fade-in-up">
+                        <h3 className="text-4xl font-headline tracking-widest text-primary">Progress Sent!</h3>
+                        <p className="text-muted-foreground mt-2 uppercase font-body tracking-wider">Your educator has been notified. Have a great trip!</p>
+                    </div>
+                )}
 
                 <section className="space-y-4">
                     <h3 className="text-3xl font-headline tracking-widest font-light">Packing List</h3>
