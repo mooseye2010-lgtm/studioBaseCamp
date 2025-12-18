@@ -31,18 +31,21 @@ export function AppHeader() {
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-lg">
-        <div className="container flex h-24 items-center justify-between">
-          <Link
-            href={user ? `/${user.role}/dashboard` : '/'}
-            className="flex items-center gap-1"
-          >
-            <h1 className="flex items-center justify-center gap-1 text-3xl text-foreground tracking-[0.2em] font-headline font-light">
-              <span>BASEC</span>
-              <Icons.Tent className="text-primary -mb-0.5" size={28} strokeWidth={1.5} />
-              <span>MP</span>
-            </h1>
-          </Link>
-          <div className="flex items-center justify-end space-x-4">
+        <div className="container grid grid-cols-3 h-24 items-center">
+          <div className="col-span-1" />
+          <div className="col-span-1 flex justify-center">
+             <Link
+                href={user ? `/${user.role}/dashboard` : '/'}
+                className="flex items-center gap-1"
+              >
+                <h1 className="flex items-center justify-center gap-1 text-3xl text-foreground tracking-[0.2em] font-headline font-light">
+                  <span>BASEC</span>
+                  <Icons.Tent className="text-primary -mb-0.5" size={28} strokeWidth={1.5} />
+                  <span>MP</span>
+                </h1>
+              </Link>
+          </div>
+          <div className="col-span-1 flex items-center justify-end space-x-4">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-14 w-14 rounded-full">
