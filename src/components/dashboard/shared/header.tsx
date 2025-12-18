@@ -26,43 +26,40 @@ export function AppHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-card/80 backdrop-blur-md">
-      <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/50 backdrop-blur-lg">
+      <div className="container flex h-20 items-center justify-between">
         <Link
           href={user ? `/${user.role}/dashboard` : '/'}
-          className="flex items-center gap-0.5"
+          className="flex items-center gap-0"
         >
-          <span className="text-xl font-bold text-primary font-headline">
-            B
-          </span>
-          <Icons.Tent className="h-6 w-6 text-primary" />
-          <h1 className="text-xl font-bold text-primary font-headline">
-            secamp
+          <h1 className="flex items-center justify-center gap-0 text-3xl font-bold text-foreground font-headline tracking-tighter">
+            <span>B</span>
+            <Icons.Tent className="text-accent -mx-0.5 -mb-0.5" size={28} strokeWidth={2.5} />
+            <span>secamp</span>
           </h1>
-          <Icons.Mountain className="h-6 w-6 text-primary ml-1" />
         </Link>
-        <div className="flex flex-1 items-center justify-end space-x-4">
+        <div className="flex items-center justify-end space-x-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                <Avatar className="h-9 w-9">
+              <Button variant="ghost" className="relative h-12 w-12 rounded-full">
+                <Avatar className="h-12 w-12 border-2 border-border">
                   <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${user?.name}`} alt={user?.name} />
-                  <AvatarFallback>{user ? getInitials(user.name) : 'U'}</AvatarFallback>
+                  <AvatarFallback className="text-lg">{user ? getInitials(user.name) : 'U'}</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="end" forceMount>
+            <DropdownMenuContent className="w-64" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">{user?.name}</p>
-                  <p className="text-xs leading-none text-muted-foreground">
+                  <p className="text-base font-medium leading-none">{user?.name}</p>
+                  <p className="text-sm leading-none text-muted-foreground">
                     {user?.email}
                   </p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={logout}>
-                <Icons.LogOut className="mr-2 h-4 w-4" />
+              <DropdownMenuItem onSelect={logout} className="text-base">
+                <Icons.LogOut className="mr-2 h-5 w-5" />
                 <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>

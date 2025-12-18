@@ -14,11 +14,10 @@ export default function AuthenticatedLayout({
   const router = useRouter();
 
   if (loading) {
-    return null; // Or a loading spinner, but auth provider already shows one
+    return null;
   }
   
   if (!isAuthenticated) {
-     // This should be handled by the AuthProvider, but as a fallback
     if (typeof window !== 'undefined') {
         router.push('/');
     }
@@ -28,7 +27,7 @@ export default function AuthenticatedLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <AppHeader />
-      <main className="flex-1 p-4 md:p-8 animate-fade-in-up">{children}</main>
+      <main className="flex-1 p-4 md:p-8">{children}</main>
     </div>
   );
 }

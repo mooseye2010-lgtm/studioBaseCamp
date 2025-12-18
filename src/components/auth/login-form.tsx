@@ -44,7 +44,6 @@ export function LoginForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    // Simulate network delay
     setTimeout(() => {
       const success = login(values.email, values.role);
       if (!success) {
@@ -66,7 +65,7 @@ export function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Email Address</FormLabel>
               <FormControl>
                 <Input placeholder="name@school.edu" {...field} />
               </FormControl>
@@ -97,19 +96,23 @@ export function LoginForm() {
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="flex flex-col space-y-1"
+                  className="grid grid-cols-2 gap-4"
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="educator" />
+                      <RadioGroupItem value="educator" id="r1" className="peer sr-only" />
                     </FormControl>
-                    <FormLabel className="font-normal">Educator</FormLabel>
+                    <FormLabel htmlFor="r1" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full">
+                        Educator
+                    </FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="student" />
+                      <RadioGroupItem value="student" id="r2" className="peer sr-only"/>
                     </FormControl>
-                    <FormLabel className="font-normal">Student</FormLabel>
+                     <FormLabel htmlFor="r2" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full">
+                        Student
+                    </FormLabel>
                   </FormItem>
                 </RadioGroup>
               </FormControl>
@@ -117,9 +120,9 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full" disabled={isLoading}>
+        <Button type="submit" size="lg" className="w-full font-bold text-lg" disabled={isLoading}>
           {isLoading && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}
-          Log In
+          Let's Go!
         </Button>
       </form>
     </Form>

@@ -30,17 +30,14 @@ export function TripDetails({ tripId }: { tripId: string }) {
   }, [tripId]);
 
   if (trip === null) {
-    // This will be caught by Suspense in a real app, but for client-side it's a bit different.
-    // Let's assume data is always found for now. If it were a real fetch, we'd handle loading/error states.
-    // For a static mock, we can use notFound() if we know it doesn't exist.
-    // notFound();
     return <p>Loading trip details...</p>;
   }
 
-  if (selectedStudent) {
-    return (
+  return (
+    <div className="animate-fade-in-up-strong">
+      {selectedStudent ? (
         <div>
-            <Button variant="ghost" onClick={() => setSelectedStudent(null)} className="mb-4">
+            <Button variant="ghost" onClick={() => setSelectedStudent(null)} className="mb-6 text-base">
                 <Icons.ArrowLeft className="mr-2 h-4 w-4" />
                 Back to All Students
             </Button>
@@ -49,35 +46,36 @@ export function TripDetails({ tripId }: { tripId: string }) {
                 student={selectedStudent} 
             />
         </div>
-    )
-  }
+      ) : (
+        <div className="space-y-8">
+            <div>
+                <Link href="/educator/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 mb-2">
+                    <Icons.ArrowLeft size={16} />
+                    Back to all expeditions
+                </Link>
+                <h2 className="text-5xl font-bold tracking-tighter font-headline">{trip.name}</h2>
+                <p className="text-xl text-muted-foreground flex items-center gap-2 mt-1">
+                    <Icons.Calendar size={20} />
+                    {new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+            </div>
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <Link href="/educator/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
-            <Icons.ArrowLeft size={16} />
-            Back to all trips
-        </Link>
-        <h2 className="text-3xl font-bold tracking-tight font-headline mt-2">{trip.name}</h2>
-        <p className="text-muted-foreground flex items-center gap-2 mt-1">
-            <Icons.Calendar size={16} />
-            {new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-        </p>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Student Progress</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {students.map(student => (
-              <StudentProgressItem key={student.id} student={student} tripId={tripId} onSelect={() => setSelectedStudent(student)} />
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+            <Card className="border-border/30">
+                <CardHeader>
+                <CardTitle className="text-2xl font-bold tracking-tight">Student Progress</CardTitle>
+                </CardHeader>
+                <CardContent>
+                <div className="space-y-2">
+                    {students.map((student, i) => (
+                    <div key={student.id} style={{animationDelay: `${i * 50}ms`, animationFillMode: 'backwards'}} className="animate-fade-in-up-strong">
+                        <StudentProgressItem student={student} tripId={tripId} onSelect={() => setSelectedStudent(student)} />
+                    </div>
+                    ))}
+                </div>
+                </CardContent>
+            </Card>
+        </div>
+      )}
     </div>
   );
 }
@@ -87,16 +85,19 @@ function StudentProgressItem({ student, tripId, onSelect }: { student: User, tri
   const getInitials = (name: string) => name.split(' ').map(n => n[0]).join('');
 
   return (
-     <div onClick={onSelect} className="flex items-center gap-4 p-3 -m-3 rounded-lg hover:bg-secondary cursor-pointer transition-colors">
-      <Avatar>
+     <div onClick={onSelect} className="flex items-center gap-4 p-4 rounded-lg hover:bg-secondary cursor-pointer transition-colors duration-200">
+      <Avatar className="h-12 w-12 text-lg">
         <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${student.name}`} />
         <AvatarFallback>{getInitials(student.name)}</AvatarFallback>
       </Avatar>
       <div className="flex-1">
-        <p className="font-medium">{student.name}</p>
-        <Progress value={progress} className="mt-1" />
+        <p className="font-medium text-lg">{student.name}</p>
+        <div className="flex items-center gap-3 mt-1">
+             <Progress value={progress} className="h-2.5 flex-1" />
+             <span className="font-bold text-lg text-accent w-12 text-right">{progress}%</span>
+        </div>
       </div>
-      <span className="font-semibold text-lg">{progress}%</span>
+       <Icons.ChevronRight className="h-6 w-6 text-muted-foreground" />
     </div>
   )
 }

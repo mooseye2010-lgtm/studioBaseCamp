@@ -1,17 +1,13 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { AuthProvider } from '@/lib/auth';
 import { Toaster } from "@/components/ui/toaster";
-import { placeholderImages } from '@/lib/placeholder-images';
 
 export const metadata: Metadata = {
   title: 'Basecamp',
-  description: 'Collaborative packing lists for students and educators',
+  description: 'The Not-Boring Packing List App',
 };
-
-const background_image = placeholderImages.find(p => p.id === 'nature-background-2');
 
 export default function RootLayout({
   children,
@@ -24,23 +20,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className={cn('font-body antialiased')}>
+      <body className={cn('font-body antialiased bg-background')}>
+         <div className="absolute top-0 left-0 h-96 w-full bg-gradient-to-br from-primary/30 to-accent/30 blur-3xl -z-10" />
         <AuthProvider>
-          {background_image && (
-             <Image
-              src={background_image.imageUrl}
-              alt={background_image.description}
-              fill
-              className="object-cover -z-50"
-              data-ai-hint={background_image.imageHint}
-              priority
-            />
-          )}
-          <div className="absolute inset-0 bg-background/30 backdrop-blur-sm -z-40" />
           {children}
           <Toaster />
         </AuthProvider>

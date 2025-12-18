@@ -1,40 +1,40 @@
 'use client';
 
-import { Tent, Mountain } from 'lucide-react';
+import { Tent } from 'lucide-react';
 import { LoginForm } from '@/components/auth/login-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const TitleCharacter = ({ char, delay }: { char: string, delay: string }) => (
-  <span className="title-char" style={{ animationDelay: delay }}>{char}</span>
-);
-
 export default function Home() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center p-4">
-      <div className="w-full max-w-sm text-center">
-        <div className="mb-8">
-            <h1 className="flex items-center justify-center gap-1 text-6xl font-bold text-center font-headline tracking-tighter">
-              <span className="text-primary"><TitleCharacter char="B" delay="0s" /></span>
-              <span className="title-char -mx-2 -mb-2" style={{ animationDelay: '0.1s' }}><Tent className="text-primary" size={60} strokeWidth={2} /></span>
-              <span className="text-primary"><TitleCharacter char="s" delay="0.2s" /></span>
-              <span className="text-primary"><TitleCharacter char="e" delay="0.3s" /></span>
-              <span className="text-primary"><TitleCharacter char="c" delay="0.4s" /></span>
-              <span className="text-primary"><TitleCharacter char="a" delay="0.5s" /></span>
-              <span className="text-primary"><TitleCharacter char="m" delay="0.6s" /></span>
-              <span className="text-primary"><TitleCharacter char="p" delay="0.7s" /></span>
-            </h1>
-            <p className="text-xl text-muted-foreground mt-2">The not-boring packing list app.</p>
+    <main className="flex min-h-screen w-full flex-col items-center justify-center p-4 overflow-hidden">
+      <div className="w-full max-w-md text-center relative z-10">
+        <div 
+          className="mb-12 animate-title-pop-in" 
+          style={{ animationDelay: '100ms', animationFillMode: 'backwards' }}
+        >
+          <h1 className="flex items-center justify-center gap-0 text-8xl font-bold text-foreground font-headline tracking-tighter -mx-4">
+            <span>B</span>
+            <Tent className="text-accent -mx-1 -mb-1" size={64} strokeWidth={2.5} />
+            <span>secamp</span>
+          </h1>
+          <p className="text-2xl text-muted-foreground mt-2 tracking-tight">The not-boring packing list app.</p>
         </div>
-        <Card className="shadow-2xl text-left border-2 border-foreground/80">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold font-headline text-center">
-                Log In To Your Account
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <LoginForm />
-          </CardContent>
-        </Card>
+        
+        <div 
+            className="animate-fade-in-up-strong"
+            style={{ animationDelay: '300ms', animationFillMode: 'backwards' }}
+        >
+            <Card className="text-left bg-card/80 backdrop-blur-lg border-border/50 shadow-2xl">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold font-headline text-center text-foreground">
+                    Get Ready for Adventure
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <LoginForm />
+              </CardContent>
+            </Card>
+        </div>
       </div>
     </main>
   );
