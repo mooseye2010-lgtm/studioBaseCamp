@@ -1,6 +1,6 @@
 import { EducatorDashboard } from "@/components/dashboard/educator/educator-dashboard";
 import { Suspense } from "react";
-import { Skeleton }_from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EducatorDashboardPage() {
   return (
