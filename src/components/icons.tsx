@@ -26,6 +26,7 @@ import {
   Sun,
   Moon,
   Laptop,
+  Flame,
 } from 'lucide-react';
 
 export const Icons = {
@@ -56,4 +57,5 @@ export const Icons = {
   Sun,
   Moon,
   System: Laptop,
+  Fire: Flame,
 };
