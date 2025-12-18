@@ -6,18 +6,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center p-4 overflow-hidden">
+    <main className="flex min-h-svh w-full flex-col items-center justify-center p-4">
       <div className="w-full max-w-md text-center relative z-10">
         <div 
           className="mb-12 animate-title-pop-in" 
           style={{ animationDelay: '100ms', animationFillMode: 'backwards' }}
         >
-          <h1 className="flex items-center justify-center gap-0 text-8xl font-bold text-foreground font-headline tracking-tighter -mx-4">
-            <span>B</span>
-            <Tent className="text-accent -mx-1 -mb-1" size={64} strokeWidth={2.5} />
-            <span>secamp</span>
+          <h1 className="flex items-center justify-center gap-0 text-6xl font-bold text-foreground font-headline tracking-tighter -mx-2">
+            <span>Basec</span>
+            <Tent className="text-accent -mx-1 -mb-1" size={48} strokeWidth={2.5} />
+            <span>mp</span>
           </h1>
-          <p className="text-2xl text-muted-foreground mt-2 tracking-tight">The not-boring packing list app.</p>
+          <p className="text-xl text-muted-foreground mt-2 tracking-tight">The not-boring packing list app.</p>
         </div>
         
         <div 

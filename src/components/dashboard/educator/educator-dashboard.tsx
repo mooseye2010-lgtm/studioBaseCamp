@@ -45,11 +45,11 @@ export function EducatorDashboard() {
             <div className="bg-secondary/50 p-6 rounded-full mb-6 animate-fade-in-up-strong">
                 <Icons.List className="h-20 w-20 text-muted-foreground" />
             </div>
-            <h3 className="text-5xl font-bold tracking-tighter font-headline animate-fade-in-up-strong" style={{animationDelay: '100ms'}}>No expeditions yet</h3>
-            <p className="max-w-md mt-3 text-xl text-muted-foreground animate-fade-in-up-strong" style={{animationDelay: '200ms'}}>Get started by creating a new expedition for your students.</p>
+            <h3 className="text-4xl font-bold tracking-tighter font-headline animate-fade-in-up-strong" style={{animationDelay: '100ms'}}>No expeditions yet</h3>
+            <p className="max-w-md mt-3 text-lg text-muted-foreground animate-fade-in-up-strong" style={{animationDelay: '200ms'}}>Get started by creating a new expedition for your students.</p>
         </div>
       )}
-       <div className="flex-shrink-0 p-8 flex justify-end animate-fade-in-up-strong" style={{animationDelay: '400ms'}}>
+       <div className="flex-shrink-0 p-8 flex justify-center animate-fade-in-up-strong" style={{animationDelay: '400ms'}}>
          <Link href="/educator/trip/new">
             <Button size="lg" className="font-bold text-xl h-16 rounded-full shadow-2xl shadow-primary/30">
                 <Icons.PlusCircle className="mr-3 h-7 w-7" />
@@ -68,11 +68,11 @@ function TripCard({ trip }: { trip: Trip }) {
         <Card className="aspect-[3/4] relative flex flex-col overflow-hidden transition-all duration-500 ease-in-out hover:scale-[1.03] hover:shadow-2xl hover:shadow-primary/20 rounded-3xl border-border/20 shadow-xl">
             <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" data-ai-hint={trip.imageHint} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-            <div className="relative flex flex-col flex-1 justify-end p-8 md:p-10 text-white">
-                <h2 className="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter leading-tight drop-shadow-lg">
+            <div className="relative flex flex-col flex-1 justify-end p-8 md:p-10 text-white text-center">
+                <h2 className="font-headline text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight drop-shadow-lg">
                     {trip.name}
                 </h2>
-                 <div className="flex items-center text-lg text-white/80 mt-4 font-medium">
+                 <div className="flex items-center justify-center text-lg text-white/80 mt-4 font-medium">
                     <Icons.Calendar className="mr-3 h-6 w-6" />
                     <span>{new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </div>

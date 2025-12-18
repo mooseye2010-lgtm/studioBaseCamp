@@ -37,8 +37,8 @@ export function TripDetails({ tripId }: { tripId: string }) {
   return (
     <div className="animate-fade-in-up-strong">
       {selectedStudent ? (
-        <div>
-            <Button variant="ghost" onClick={() => setSelectedStudent(null)} className="mb-8 text-lg font-bold group flex items-center">
+        <div className="text-center">
+            <Button variant="ghost" onClick={() => setSelectedStudent(null)} className="mb-8 text-lg font-bold group flex items-center mx-auto">
                 <Icons.ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
                 Back to All Students
             </Button>
@@ -49,24 +49,24 @@ export function TripDetails({ tripId }: { tripId: string }) {
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-            <div className="space-y-6 lg:sticky lg:top-28">
-                <Link href="/educator/dashboard" className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group">
+            <div className="space-y-6 lg:sticky lg:top-28 text-center">
+                <Link href="/educator/dashboard" className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group w-fit mx-auto">
                     <Icons.ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
                     Back to all expeditions
                 </Link>
                 <div className="relative aspect-video rounded-3xl overflow-hidden shadow-xl border-4 border-border/10">
                     <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" />
                 </div>
-                <h2 className="text-7xl font-bold tracking-tighter font-headline leading-tight">{trip.name}</h2>
-                <p className="text-2xl text-muted-foreground flex items-center gap-3">
+                <h2 className="text-5xl font-bold tracking-tighter font-headline leading-tight">{trip.name}</h2>
+                <p className="text-xl text-muted-foreground flex items-center justify-center gap-3">
                     <Icons.Calendar size={28} />
                     {new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
             </div>
 
             <Card className="border-border/20 bg-card/30 backdrop-blur-sm rounded-3xl">
-                <CardHeader>
-                <CardTitle className="text-4xl font-bold tracking-tight font-headline">Student Progress</CardTitle>
+                <CardHeader className="text-center">
+                <CardTitle className="text-3xl font-bold tracking-tight font-headline">Student Progress</CardTitle>
                 </CardHeader>
                 <CardContent>
                 <ScrollArea className="h-[calc(100vh-20rem)]">

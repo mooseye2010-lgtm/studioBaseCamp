@@ -27,9 +27,9 @@ export function StudentDashboard() {
 
   return (
     <div className="container mx-auto max-w-5xl py-8 md:py-12">
-        <div className="mb-10 md:mb-16">
-            <h1 className="font-headline text-8xl md:text-9xl font-black tracking-tighter leading-none">Your</h1>
-            <h1 className="font-headline text-8xl md:text-9xl font-black tracking-tighter leading-none text-primary">Expeditions</h1>
+        <div className="mb-10 md:mb-16 text-center">
+            <h1 className="font-headline text-7xl md:text-8xl font-black tracking-tighter leading-none">Your</h1>
+            <h1 className="font-headline text-7xl md:text-8xl font-black tracking-tighter leading-none text-primary">Expeditions</h1>
         </div>
 
       {trips.length > 0 ? (
@@ -60,11 +60,11 @@ function TripCard({ trip, studentId }: { trip: Trip, studentId: string }) {
             <div className="relative w-full md:w-1/3 aspect-video md:aspect-[4/3] overflow-hidden rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none">
                 <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" data-ai-hint={trip.imageHint}/>
             </div>
-            <div className="flex-1 p-6 md:p-8 lg:p-10 w-full">
-                <h2 className="font-headline text-4xl lg:text-5xl font-extrabold tracking-tighter leading-tight drop-shadow-sm">
+            <div className="flex-1 p-6 md:p-8 lg:p-10 w-full text-center md:text-left">
+                <h2 className="font-headline text-3xl lg:text-4xl font-extrabold tracking-tighter leading-tight drop-shadow-sm">
                     {trip.name}
                 </h2>
-                 <div className="flex items-center text-lg text-muted-foreground mt-3 font-medium">
+                 <div className="flex items-center justify-center md:justify-start text-lg text-muted-foreground mt-3 font-medium">
                     <Icons.Calendar className="mr-2 h-5 w-5" />
                     <span>{format(new Date(trip.date), 'MMMM d, yyyy')}</span>
                 </div>

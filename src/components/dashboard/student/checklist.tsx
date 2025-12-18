@@ -64,14 +64,14 @@ export function Checklist({ tripId }: { tripId: string }) {
        {showConfetti && <Confetti width={width} height={height} recycle={false} numberOfPieces={500} gravity={0.12} />}
        
        <div className="container mx-auto max-w-4xl py-8 md:py-12">
-            <header className="mb-10 md:mb-16 space-y-4">
-                <Link href="/student/dashboard" className="text-base font-semibold text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group">
+            <header className="mb-10 md:mb-16 space-y-4 text-center">
+                <Link href="/student/dashboard" className="text-base font-semibold text-muted-foreground hover:text-primary transition-colors flex items-center justify-center gap-2 group w-fit mx-auto">
                     <Icons.ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
                     All Expeditions
                 </Link>
                 <div>
-                    <h1 className="font-headline text-7xl md:text-8xl font-black tracking-tighter leading-none">{trip.name}</h1>
-                    <p className="text-xl md:text-2xl text-muted-foreground flex items-center gap-3 mt-4 font-medium">
+                    <h1 className="font-headline text-6xl md:text-7xl font-black tracking-tighter leading-none">{trip.name}</h1>
+                    <p className="text-xl md:text-2xl text-muted-foreground flex items-center justify-center gap-3 mt-4 font-medium">
                         <Icons.Calendar size={22} />
                         {format(new Date(trip.date), 'MMMM d, yyyy')}
                     </p>
@@ -79,12 +79,12 @@ export function Checklist({ tripId }: { tripId: string }) {
             </header>
 
             <main className="space-y-12">
-                <section>
-                    <div className="flex justify-between items-end mb-3">
-                        <h2 className="text-xl font-bold text-muted-foreground tracking-widest uppercase">Required Items</h2>
-                        <span className="font-headline font-bold text-6xl text-primary tracking-tighter">{completionPercentage}%</span>
+                <section className='text-center'>
+                    <div className="flex justify-between items-end mb-3 max-w-sm mx-auto">
+                        <h2 className="text-lg font-bold text-muted-foreground tracking-widest uppercase">Required Items</h2>
+                        <span className="font-headline font-bold text-5xl text-primary tracking-tighter">{completionPercentage}%</span>
                     </div>
-                    <div className="h-5 bg-muted rounded-full overflow-hidden">
+                    <div className="h-5 bg-muted rounded-full overflow-hidden max-w-sm mx-auto">
                         <div 
                             className="h-full bg-gradient-to-r from-primary to-green-400 transition-all duration-700 ease-out" 
                             style={{width: `${completionPercentage}%`}}
@@ -93,7 +93,7 @@ export function Checklist({ tripId }: { tripId: string }) {
                 </section>
 
                 <section className="space-y-4 md:space-y-5">
-                    <h3 className="text-4xl font-bold font-headline tracking-tighter">Your Packing List</h3>
+                    <h3 className="text-3xl font-bold font-headline tracking-tighter text-center">Your Packing List</h3>
                     {trip.items.map((item, i) => {
                     const status = statuses.find(s => s.itemId === item.id);
                     if (!status) return null;
