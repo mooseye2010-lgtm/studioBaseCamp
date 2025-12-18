@@ -13,12 +13,17 @@ import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Link from 'next/link';
+import Confetti from 'react-confetti';
+import { useWindowSize } from '@/hooks/use-window-size';
+
 
 export function Checklist({ tripId }: { tripId: string }) {
   const { user } = useAuth();
   const [trip, setTrip] = useState<Trip | null>(null);
   const [progress, setProgress] = useState<StudentTripProgress | undefined>(undefined);
   const [statuses, setStatuses] = useState<StudentChecklistItemStatus[]>([]);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const { width, height } = useWindowSize();
 
   useEffect(() => {
     const foundTrip = allTrips.find(t => t.id === tripId);
@@ -36,6 +41,11 @@ export function Checklist({ tripId }: { tripId: string }) {
     // In a real app, this would be a server action to update the database
     const newStatuses = statuses.map(s => s.itemId === itemId ? { ...s, completed: checked } : s);
     setStatuses(newStatuses);
+
+    if (checked) {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 4000); // Confetti for 4 seconds
+    }
   };
 
   const completionPercentage = useMemo(() => {
@@ -55,6 +65,7 @@ export function Checklist({ tripId }: { tripId: string }) {
 
   return (
     <div className="space-y-6">
+       {showConfetti && <Confetti width={width} height={height} recycle={false} numberOfPieces={400} />}
        <div>
         <Link href="/student/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
             <Icons.ArrowLeft size={16} />

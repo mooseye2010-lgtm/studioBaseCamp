@@ -94,7 +94,7 @@ function StudentProgressItem({ student, tripId, onSelect }: { student: User, tri
       </Avatar>
       <div className="flex-1">
         <p className="font-medium">{student.name}</p>
-        <Progress value={progress} className="mt-1 h-2" />
+        <Progress value={progress} className="mt-1" />
       </div>
       <span className="font-semibold text-lg">{progress}%</span>
     </div>

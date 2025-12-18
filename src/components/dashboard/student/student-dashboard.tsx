@@ -72,7 +72,7 @@ function TripCard({ trip, studentId }: { trip: Trip, studentId: string }) {
       <CardFooter className="flex-col items-start gap-2 p-6 pt-0">
           <div>
             <span className="text-sm font-medium">Your Progress</span>
-            <Progress value={progress} className="mt-1 h-2" />
+            <Progress value={progress} className="mt-1" />
           </div>
           <Link href={`/student/trip/${trip.id}`} className="w-full">
             <Button variant="outline" className="w-full mt-2">View Checklist</Button>
