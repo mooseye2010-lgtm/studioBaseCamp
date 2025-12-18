@@ -22,6 +22,10 @@ import {
   Hammer,
   ArrowRight,
   Check,
+  Settings,
+  Sun,
+  Moon,
+  Laptop,
 } from 'lucide-react';
 
 export const Icons = {
@@ -48,4 +52,8 @@ export const Icons = {
   Stake: Hammer,
   ArrowRight,
   Check,
+  Settings,
+  Sun,
+  Moon,
+  System: Laptop,
 };
