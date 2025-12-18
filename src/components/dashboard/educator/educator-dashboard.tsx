@@ -77,7 +77,7 @@ export function EducatorDashboard() {
 function TripListItem({ trip, isActive }: { trip: Trip, isActive: boolean }) {
     return (
         <Card className={`p-4 cursor-pointer transition-all duration-300 rounded-2xl border-2 ${isActive ? 'border-primary bg-primary/10' : 'border-border bg-card hover:bg-secondary'}`}>
-            <h3 className="font-semibold text-lg uppercase font-body tracking-wider">{trip.name}</h3>
+            <h3 className="font-medium text-lg uppercase font-body tracking-wider">{trip.name}</h3>
             <div className="flex items-center text-sm text-muted-foreground mt-1 uppercase font-body tracking-wider">
                 <Icons.Calendar className="mr-2 h-4 w-4" />
                 <span>{new Date(trip.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</span>
