@@ -12,12 +12,15 @@ export default function EducatorDashboardPage() {
 
 function DashboardSkeleton() {
     return (
-        <div className="flex flex-col h-full p-4 md:p-8">
-            <div className="flex-1 flex items-center justify-center">
-                <Skeleton className="w-full max-w-md h-96 rounded-3xl" />
+        <div className="flex flex-col h-full p-6 space-y-8">
+            <div className="flex justify-between items-center">
+                <Skeleton className="h-12 w-48 rounded-lg" />
+                <Skeleton className="h-14 w-40 rounded-full" />
             </div>
-            <div className="flex-shrink-0 flex justify-end">
-                <Skeleton className="h-14 w-48 rounded-full" />
+            <div className="space-y-4">
+                <Skeleton className="h-32 w-full rounded-3xl" />
+                <Skeleton className="h-32 w-full rounded-3xl" />
+                <Skeleton className="h-32 w-full rounded-3xl" />
             </div>
         </div>
     )

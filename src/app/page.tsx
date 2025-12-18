@@ -12,22 +12,22 @@ export default function Home() {
       </div>
       <div className="w-full max-w-sm text-center relative z-10">
         <div 
-          className="mb-10 animate-title-pop-in" 
+          className="mb-12 animate-title-pop-in" 
           style={{ animationFillMode: 'backwards' }}
         >
-          <h1 className="flex items-center justify-center gap-1 text-5xl font-bold text-foreground/90 tracking-tighter font-headline">
+          <h1 className="flex items-center justify-center gap-1 text-6xl font-bold text-foreground/90 tracking-tighter font-headline">
             <span>Basec</span>
-            <Tent className="text-primary -mb-1" size={36} strokeWidth={2.5} />
+            <Tent className="text-primary -mb-1" size={48} strokeWidth={2} />
             <span>mp</span>
           </h1>
-          <p className="text-lg text-muted-foreground mt-2 tracking-tight">The Not-Boring Packing App.</p>
+          <p className="text-xl text-muted-foreground mt-2 tracking-tight">The Not-Boring Packing App.</p>
         </div>
         
         <div 
             className="animate-fade-in-up"
             style={{ animationDelay: '200ms', animationFillMode: 'backwards' }}
         >
-            <Card className="text-left bg-card/80 backdrop-blur-sm border-border/50 shadow-2xl shadow-primary/10">
+            <Card className="text-left bg-card/80 backdrop-blur-sm border-border/50 shadow-2xl shadow-primary/10 rounded-[2rem]">
               <CardHeader>
                 <CardTitle className="text-xl font-medium text-center text-foreground">
                     Sign In

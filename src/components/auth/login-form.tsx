@@ -102,7 +102,7 @@ export function LoginForm() {
                     <FormControl>
                       <RadioGroupItem value="educator" id="r1" className="peer sr-only" />
                     </FormControl>
-                    <FormLabel htmlFor="r1" className="flex flex-col items-center justify-center rounded-lg border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full cursor-pointer h-16 text-base font-medium transition-all">
+                    <FormLabel htmlFor="r1" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full cursor-pointer h-20 text-lg font-medium transition-all">
                         Educator
                     </FormLabel>
                   </FormItem>
@@ -110,7 +110,7 @@ export function LoginForm() {
                     <FormControl>
                       <RadioGroupItem value="student" id="r2" className="peer sr-only"/>
                     </FormControl>
-                     <FormLabel htmlFor="r2" className="flex flex-col items-center justify-center rounded-lg border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full cursor-pointer h-16 text-base font-medium transition-all">
+                     <FormLabel htmlFor="r2" className="flex flex-col items-center justify-center rounded-2xl border-2 border-muted bg-card p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary w-full cursor-pointer h-20 text-lg font-medium transition-all">
                         Student
                     </FormLabel>
                   </FormItem>
@@ -120,7 +120,7 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" size="lg" className="w-full font-bold text-lg tracking-wide">
+        <Button type="submit" size="lg" className="w-full font-bold text-lg tracking-wide rounded-full">
           {isLoading && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}
           Continue
         </Button>

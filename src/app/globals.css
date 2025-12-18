@@ -4,49 +4,49 @@
 
 @layer base {
   :root {
-    --background: 224 71% 4%;
-    --foreground: 210 40% 98%;
-    --card: 224 71% 10%;
-    --card-foreground: 210 40% 98%;
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 48 96% 58%;
-    --primary-foreground: 48 96% 10%;
-    --secondary: 210 40% 15%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 210 40% 25%;
-    --muted-foreground: 210 40% 60%;
-    --accent: 48 96% 50%;
-    --accent-foreground: 48 96% 10%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 210 40% 20%;
-    --input: 210 40% 15%;
-    --ring: 48 96% 58%;
-    --radius: 1rem;
+    --background: 19 19% 10%; /* Deep brown-black */
+    --foreground: 30 10% 90%; /* Off-white */
+    --card: 19 15% 15%; /* Darker brown-black */
+    --card-foreground: 30 10% 90%;
+    --popover: 19 19% 10%;
+    --popover-foreground: 30 10% 90%;
+    --primary: 345 96% 70%; /* Vibrant coral-pink */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 19 15% 20%;
+    --secondary-foreground: 30 10% 98%;
+    --muted: 19 15% 25%;
+    --muted-foreground: 30 10% 60%;
+    --accent: 175 96% 60%; /* Bright turquoise */
+    --accent-foreground: 180 100% 5%;
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 19 15% 25%;
+    --input: 19 15% 20%;
+    --ring: 345 96% 70%;
+    --radius: 1.5rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 210 40% 98%;
-    --card: 224 71% 10%;
-    --card-foreground: 210 40% 98%;
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 48 96% 58%;
-    --primary-foreground: 48 96% 10%;
-    --secondary: 210 40% 15%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 210 40% 25%;
-    --muted-foreground: 210 40% 60%;
-    --accent: 48 96% 50%;
-    --accent-foreground: 48 96% 10%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 210 40% 20%;
-    --input: 210 40% 15%;
-    --ring: 48 96% 58%;
-    --radius: 1rem;
+    --background: 19 19% 10%;
+    --foreground: 30 10% 90%;
+    --card: 19 15% 15%;
+    --card-foreground: 30 10% 90%;
+    --popover: 19 19% 10%;
+    --popover-foreground: 30 10% 90%;
+    --primary: 345 96% 70%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 19 15% 20%;
+    --secondary-foreground: 30 10% 98%;
+    --muted: 19 15% 25%;
+    --muted-foreground: 30 10% 60%;
+    --accent: 175 96% 60%;
+    --accent-foreground: 180 100% 5%;
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 19 15% 25%;
+    --input: 19 15% 20%;
+    --ring: 345 96% 70%;
+    --radius: 1.5rem;
   }
 }
 
@@ -79,12 +79,12 @@
 }
 
 @keyframes check-in {
-  0% { transform: scale(0.8); opacity: 0; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+  0% { transform: scale(0.8) rotate(-10deg); opacity: 0; }
+  50% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 .animate-check-in {
-  animation: check-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: check-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @keyframes button-press {

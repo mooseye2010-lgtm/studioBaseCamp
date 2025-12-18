@@ -12,9 +12,12 @@ export default function StudentDashboardPage() {
 
 function DashboardSkeleton() {
     return (
-        <div className="flex flex-col h-full p-4 md:p-8">
-            <div className="flex-1 flex items-center justify-center">
-                <Skeleton className="w-full max-w-md h-96 rounded-3xl" />
+        <div className="flex flex-col h-full items-center justify-center p-4 md:p-8">
+            <Skeleton className="w-full max-w-md h-[70vh] rounded-3xl" />
+            <div className="flex gap-4 mt-8">
+                <Skeleton className="h-3 w-10 rounded-full" />
+                <Skeleton className="h-3 w-3 rounded-full" />
+                <Skeleton className="h-3 w-3 rounded-full" />
             </div>
         </div>
     )

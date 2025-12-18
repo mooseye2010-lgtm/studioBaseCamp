@@ -79,9 +79,9 @@ export function CreateTripForm({ students }: { students: User[] }) {
   }
 
   return (
-    <div className="container mx-auto max-w-4xl py-8">
-      <div className="mb-8">
-        <Button asChild variant="ghost" className="mb-4">
+    <div className="container mx-auto max-w-4xl py-12">
+      <div className="mb-10">
+        <Button asChild variant="ghost" className="mb-4 rounded-full">
             <Link
             href="/educator/dashboard"
             className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"
@@ -90,7 +90,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
             Back to Dashboard
             </Link>
         </Button>
-        <h1 className="text-4xl font-bold tracking-tight font-headline">
+        <h1 className="text-5xl font-bold tracking-tight font-headline">
           Create New Trip
         </h1>
       </div>
@@ -107,7 +107,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                     <FormLabel className="text-lg font-medium">Trip Name</FormLabel>
                     <FormControl>
                       <Input
-                        className="text-lg h-14"
+                        className="text-lg h-16 rounded-2xl"
                         placeholder="e.g., Yosemite Geology Tour"
                         {...field}
                       />
@@ -128,7 +128,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                           <Button
                             variant={'outline'}
                             className={cn(
-                              'w-full sm:w-[280px] justify-start text-left font-normal text-lg h-14',
+                              'w-full sm:w-[280px] justify-start text-left font-normal text-lg h-16 rounded-2xl',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
@@ -141,7 +141,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
+                      <PopoverContent className="w-auto p-0 rounded-3xl">
                         <Calendar
                           mode="single"
                           selected={field.value}
@@ -155,7 +155,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                   </FormItem>
                 )}
               />
-                <Card className="bg-card">
+                <Card className="bg-card rounded-3xl">
                     <CardHeader>
                     <CardTitle className="text-xl font-medium">Assign Students</CardTitle>
                     <CardDescription>
@@ -178,11 +178,11 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                     return (
                                     <FormItem
                                         key={student.id}
-                                        className="flex flex-row items-center space-x-3 space-y-0 p-3 rounded-md transition-colors hover:bg-secondary"
+                                        className="flex flex-row items-center space-x-3 space-y-0 p-3 rounded-2xl transition-colors hover:bg-secondary"
                                     >
                                         <FormControl>
                                         <Checkbox
-                                            className="h-5 w-5"
+                                            className="h-6 w-6 rounded-md"
                                             checked={field.value?.includes(student.id)}
                                             onCheckedChange={(checked) => {
                                             return checked
@@ -221,7 +221,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                         {fields.map((field, index) => (
                             <div
                             key={field.id}
-                            className="flex items-center gap-3 p-2 border rounded-lg bg-card"
+                            className="flex items-center gap-3 p-2 border rounded-2xl bg-card"
                             >
                             <FormField
                                 control={form.control}
@@ -229,7 +229,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                 render={({ field }) => (
                                 <FormItem className="flex-1">
                                     <FormControl>
-                                    <Input placeholder="e.g., Water Bottle" {...field} className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-base h-auto p-1" />
+                                    <Input placeholder="e.g., Water Bottle" {...field} className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-base h-auto p-1 rounded-md" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -270,7 +270,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                 type="button"
                 variant="outline"
                 onClick={() => append({ name: '', required: true })}
-                className="w-full h-12 text-base font-medium"
+                className="w-full h-14 text-base font-medium rounded-full"
               >
                 <Icons.PlusCircle className="mr-2 h-5 w-5" />
                 Add Item
@@ -282,11 +282,12 @@ export function CreateTripForm({ students }: { students: User[] }) {
               type="button"
               variant="ghost"
               size="lg"
+              className="rounded-full"
               onClick={() => router.push('/educator/dashboard')}
             >
               Cancel
             </Button>
-            <Button type="submit" size="lg" className="font-bold text-lg">
+            <Button type="submit" size="lg" className="font-bold text-lg rounded-full">
               Create Trip
             </Button>
           </div>
