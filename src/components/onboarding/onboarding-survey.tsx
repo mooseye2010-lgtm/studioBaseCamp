@@ -13,6 +13,11 @@ export function OnboardingSurvey({ onComplete }: { onComplete: () => void }) {
   const { user } = useAuth();
   const [selectedTheme, setSelectedTheme] = useState(theme);
   const [step, setStep] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleFinish = () => {
     if (selectedTheme) {
@@ -25,7 +30,7 @@ export function OnboardingSurvey({ onComplete }: { onComplete: () => void }) {
     {
       title: "Welcome to Basecamp!",
       subtitle: `Let's quickly set up your experience, ${user?.name}.`,
-      content: (
+      content: !mounted ? null : (
         <div>
           <h3 className="font-semibold text-base uppercase font-body tracking-wider mb-4">Choose your look</h3>
           <RadioGroup value={selectedTheme} onValueChange={setSelectedTheme} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
