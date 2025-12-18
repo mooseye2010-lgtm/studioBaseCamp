@@ -3,7 +3,6 @@ import {
   Mountain,
   LogOut,
   User as UserIcon,
-  ChevronDown,
   ChevronRight,
   PlusCircle,
   Calendar,
@@ -20,7 +19,9 @@ import {
   ClipboardList,
   Tent,
   Trash2,
-  Hammer
+  Hammer,
+  ArrowRight,
+  Check,
 } from 'lucide-react';
 
 export const Icons = {
@@ -28,7 +29,6 @@ export const Icons = {
   Mountain,
   LogOut,
   User: UserIcon,
-  ChevronDown,
   ChevronRight,
   PlusCircle,
   Calendar,
@@ -45,5 +45,7 @@ export const Icons = {
   List: ClipboardList,
   Tent,
   Trash: Trash2,
-  Stake: Hammer
+  Stake: Hammer,
+  ArrowRight,
+  Check,
 };
