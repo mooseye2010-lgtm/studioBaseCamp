@@ -11,6 +11,7 @@ import { getStudentTripProgress } from '@/lib/utils';
 import { format } from 'date-fns';
 import { Progress } from '@/components/ui/progress';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 export function StudentDashboard() {
   const { user } = useAuth();
