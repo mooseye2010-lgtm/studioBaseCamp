@@ -2,9 +2,9 @@
   "placeholderImages": [
     {
       "id": "nature-background",
-      "description": "A scenic mountain landscape at sunrise, with a lake in the foreground and misty forests on the hillsides.",
-      "imageUrl": "https://images.unsplash.com/photo-1668900030471-170e936b201a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzY2VuaWMlMjBsYW5kc2NhcGV8ZW58MHx8fHwxNzY1ODMzNTkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "scenic landscape"
+      "description": "A scenic view of a turquoise lake surrounded by mountains and a lush green forest.",
+      "imageUrl": "https://images.unsplash.com/photo-1501854140801-50d01698950b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxuYXR1cmUlMjBsYW5kc2NhcGV8ZW58MHx8fHwxNzY2MDk5NjM4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "nature landscape"
     },
     {
       "id": "trip-yosemite",

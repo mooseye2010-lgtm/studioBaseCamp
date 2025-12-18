@@ -177,7 +177,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
               {fields.map((field, index) => (
                 <div
                   key={field.id}
-                  className="flex items-end gap-4 p-4 border rounded-lg"
+                  className="flex items-end gap-4 p-4 border rounded-lg bg-black/5"
                 >
                   <FormField
                     control={form.control}
@@ -297,7 +297,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
             >
               Cancel
             </Button>
-            <Button type="submit" className="bg-accent hover:bg-accent/90">
+            <Button type="submit">
               Create Trip
             </Button>
           </div>

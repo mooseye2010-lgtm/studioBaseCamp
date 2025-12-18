@@ -37,9 +37,10 @@ export default function RootLayout({
               fill
               className="object-cover -z-50"
               data-ai-hint={background_image.imageHint}
+              priority
             />
           )}
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm -z-40" />
+          <div className="absolute inset-0 bg-background/60 backdrop-blur-lg -z-40" />
           {children}
           <Toaster />
         </AuthProvider>
