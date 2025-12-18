@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react';
 import type { Trip } from '@/lib/types';
 import { trips as allTrips } from '@/lib/data';
 import { useAuth } from '@/lib/auth';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { getOverallTripProgress } from '@/lib/utils';
+import { Progress } from '@/components/ui/progress';
 
 export function EducatorDashboard() {
   const { user } = useAuth();
@@ -23,59 +24,66 @@ export function EducatorDashboard() {
   }
 
   return (
-    <div className="flex flex-col h-full">
-      {trips.length > 0 ? (
-        <Carousel className="flex-1 w-full flex flex-col justify-center items-center -mt-16" opts={{loop: true}}>
-          <CarouselContent className="-ml-4">
-            {trips.map((trip, i) => (
-              <CarouselItem key={trip.id} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                 <div className="p-1">
-                    <TripCard trip={trip} />
-                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="mt-8 flex gap-4">
-            <CarouselPrevious className="relative -left-4 -top-0 -translate-y-0 h-14 w-14 rounded-full"/>
-            <CarouselNext className="relative -right-4 -top-0 -translate-y-0 h-14 w-14 rounded-full"/>
-          </div>
-        </Carousel>
-      ) : (
-        <div className="flex-1 flex flex-col items-center justify-center text-center p-4">
-            <div className="bg-secondary/50 p-6 rounded-full mb-6 animate-fade-in-up-strong">
-                <Icons.List className="h-20 w-20 text-muted-foreground" />
+    <div className="container mx-auto max-w-5xl py-8">
+        <header className="flex justify-between items-center mb-8">
+            <div>
+                <h1 className="text-4xl font-light tracking-tight">Dashboard</h1>
+                <p className="text-muted-foreground mt-1">Overview of your expeditions.</p>
             </div>
-            <h3 className="text-4xl font-bold tracking-tighter font-headline animate-fade-in-up-strong" style={{animationDelay: '100ms'}}>No expeditions yet</h3>
-            <p className="max-w-md mt-3 text-lg text-muted-foreground animate-fade-in-up-strong" style={{animationDelay: '200ms'}}>Get started by creating a new expedition for your students.</p>
+            <Button asChild size="lg" className="font-medium text-base">
+                <Link href="/educator/trip/new">
+                    <Icons.PlusCircle className="mr-2 h-5 w-5" />
+                    New Trip
+                </Link>
+            </Button>
+        </header>
+
+      {trips.length > 0 ? (
+        <div className="space-y-6">
+            {trips.map((trip, i) => (
+                <div key={trip.id} className="animate-fade-in-up" style={{animationDelay: `${i * 100}ms`, animationFillMode: 'backwards'}}>
+                    <TripCard trip={trip} />
+                </div>
+            ))}
+        </div>
+      ) : (
+        <div className="text-center p-12 border-2 border-dashed rounded-lg animate-fade-in-up">
+            <Icons.List className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-2xl font-medium">No trips yet</h3>
+            <p className="max-w-md mx-auto mt-2 text-muted-foreground">Get started by creating a new trip for your students.</p>
         </div>
       )}
-       <div className="flex-shrink-0 p-8 flex justify-center animate-fade-in-up-strong" style={{animationDelay: '400ms'}}>
-         <Link href="/educator/trip/new">
-            <Button size="lg" className="font-bold text-xl h-16 rounded-full shadow-2xl shadow-primary/30">
-                <Icons.PlusCircle className="mr-3 h-7 w-7" />
-                New Expedition
-            </Button>
-         </Link>
-      </div>
     </div>
   );
 }
 
 function TripCard({ trip }: { trip: Trip }) {
+  const progress = getOverallTripProgress(trip.id);
 
   return (
     <Link href={`/educator/trip/${trip.id}`} className="block group">
-        <Card className="aspect-[3/4] relative flex flex-col overflow-hidden transition-all duration-500 ease-in-out hover:scale-[1.03] hover:shadow-2xl hover:shadow-primary/20 rounded-3xl border-border/20 shadow-xl">
-            <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" data-ai-hint={trip.imageHint} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-            <div className="relative flex flex-col flex-1 justify-end p-8 md:p-10 text-white text-center">
-                <h2 className="font-headline text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight drop-shadow-lg">
+        <Card className="flex items-center overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:border-primary/20">
+             <div className="relative w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0">
+                <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" data-ai-hint={trip.imageHint} />
+            </div>
+            <div className="flex-1 p-4 sm:p-6">
+                <h2 className="font-medium text-xl sm:text-2xl leading-tight">
                     {trip.name}
                 </h2>
-                 <div className="flex items-center justify-center text-lg text-white/80 mt-4 font-medium">
-                    <Icons.Calendar className="mr-3 h-6 w-6" />
+                 <div className="flex items-center text-sm text-muted-foreground mt-2">
+                    <Icons.Calendar className="mr-2 h-4 w-4" />
                     <span>{new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </div>
+                <div className="mt-4">
+                    <div className="flex justify-between items-center mb-1 text-sm">
+                        <span className="font-medium text-muted-foreground">Overall Progress</span>
+                        <span className="font-semibold text-primary">{progress}%</span>
+                    </div>
+                    <Progress value={progress} className="h-2" />
+                </div>
+            </div>
+            <div className="px-4 text-muted-foreground transition-transform group-hover:translate-x-1">
+                <Icons.ChevronRight className="h-6 w-6" />
             </div>
         </Card>
     </Link>

@@ -79,41 +79,40 @@ export function CreateTripForm({ students }: { students: User[] }) {
   }
 
   return (
-    <div className="container mx-auto max-w-5xl py-8">
-      <div className="mb-8 text-center">
-        <Link
-          href="/educator/dashboard"
-          className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center justify-center gap-2 group w-fit mx-auto"
-        >
-          <Icons.ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-          Back to Dashboard
-        </Link>
-        <h1 className="text-5xl font-bold tracking-tighter font-headline mt-4 leading-tight">
-          Craft a New Adventure
+    <div className="container mx-auto max-w-4xl py-8">
+      <div className="mb-8">
+        <Button asChild variant="ghost" className="mb-4">
+            <Link
+            href="/educator/dashboard"
+            className="text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"
+            >
+            <Icons.ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            Back to Dashboard
+            </Link>
+        </Button>
+        <h1 className="text-4xl font-light tracking-tight">
+          Create New Trip
         </h1>
-        <p className="text-xl text-muted-foreground tracking-tight">
-          Build a packing list for your next expedition.
-        </p>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12">
             <div className="space-y-8">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xl font-bold tracking-tight text-center block">Expedition Name</FormLabel>
+                    <FormLabel className="text-lg font-medium">Trip Name</FormLabel>
                     <FormControl>
                       <Input
-                        className="text-2xl h-16 text-center"
+                        className="text-lg h-14"
                         placeholder="e.g., Yosemite Geology Tour"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-center"/>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -121,19 +120,19 @@ export function CreateTripForm({ students }: { students: User[] }) {
                 control={form.control}
                 name="date"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col items-center">
-                    <FormLabel className="text-xl font-bold tracking-tight">Departure Date</FormLabel>
+                  <FormItem className="flex flex-col">
+                    <FormLabel className="text-lg font-medium">Departure Date</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
                             variant={'outline'}
                             className={cn(
-                              'w-full sm:w-[320px] justify-start text-left font-normal text-xl h-16',
+                              'w-full sm:w-[280px] justify-start text-left font-normal text-lg h-14',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
-                            <Icons.Calendar className="mr-3 h-6 w-6" />
+                            <Icons.Calendar className="mr-3 h-5 w-5" />
                             {field.value ? (
                               format(field.value, 'PPP')
                             ) : (
@@ -142,7 +141,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="center">
+                      <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
                           selected={field.value}
@@ -156,11 +155,11 @@ export function CreateTripForm({ students }: { students: User[] }) {
                   </FormItem>
                 )}
               />
-                 <Card className="bg-card/30 backdrop-blur-sm border-border/20 rounded-2xl">
-                    <CardHeader className="text-center">
-                    <CardTitle className="text-2xl font-bold tracking-tight">Assign Students</CardTitle>
-                    <CardDescription className="text-base">
-                        Select the students who will be joining this adventure.
+                <Card className="bg-card">
+                    <CardHeader>
+                    <CardTitle className="text-xl font-medium">Assign Students</CardTitle>
+                    <CardDescription>
+                        Select students for this trip.
                     </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -169,7 +168,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                         name="assignedStudentIds"
                         render={() => (
                         <FormItem>
-                            <div className="space-y-4">
+                            <div className="space-y-2">
                             {students.map((student) => (
                                 <FormField
                                 key={student.id}
@@ -179,11 +178,11 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                     return (
                                     <FormItem
                                         key={student.id}
-                                        className="flex flex-row items-center space-x-4 space-y-0 p-4 rounded-xl transition-colors hover:bg-secondary/50"
+                                        className="flex flex-row items-center space-x-3 space-y-0 p-3 rounded-md transition-colors hover:bg-secondary"
                                     >
                                         <FormControl>
                                         <Checkbox
-                                            className="h-7 w-7"
+                                            className="h-5 w-5"
                                             checked={field.value?.includes(student.id)}
                                             onCheckedChange={(checked) => {
                                             return checked
@@ -199,7 +198,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                             }}
                                         />
                                         </FormControl>
-                                        <FormLabel className="font-medium text-lg leading-snug flex-1">
+                                        <FormLabel className="font-normal text-base flex-1 cursor-pointer">
                                         {student.name} <span className="block text-sm text-muted-foreground">{student.email}</span>
                                         </FormLabel>
                                     </FormItem>
@@ -216,13 +215,13 @@ export function CreateTripForm({ students }: { students: User[] }) {
                 </Card>
             </div>
             <div className="space-y-6">
-                <div className="text-center">
-                     <h2 className="text-2xl font-bold tracking-tight mb-4">Packing List Items</h2>
-                     <div className="space-y-4">
+                <div>
+                     <h2 className="text-lg font-medium mb-4">Packing List Items</h2>
+                     <div className="space-y-3">
                         {fields.map((field, index) => (
                             <div
                             key={field.id}
-                            className="flex items-center gap-3 p-3 border rounded-xl bg-card/50 text-left"
+                            className="flex items-center gap-3 p-2 border rounded-lg bg-card"
                             >
                             <FormField
                                 control={form.control}
@@ -230,7 +229,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                 render={({ field }) => (
                                 <FormItem className="flex-1">
                                     <FormControl>
-                                    <Input placeholder="e.g., Water Bottle" {...field} className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-lg h-auto p-1" />
+                                    <Input placeholder="e.g., Water Bottle" {...field} className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-base h-auto p-1" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -240,14 +239,14 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                 control={form.control}
                                 name={`items.${index}.required`}
                                 render={({ field }) => (
-                                <FormItem className="flex items-center gap-2.5">
+                                <FormItem className="flex items-center gap-2">
                                     <FormControl>
                                     <Switch
                                         checked={field.value}
                                         onCheckedChange={field.onChange}
                                     />
                                     </FormControl>
-                                    <FormLabel className="text-sm text-muted-foreground font-medium">Required</FormLabel>
+                                    <FormLabel className="text-xs text-muted-foreground font-normal">Required</FormLabel>
                                 </FormItem>
                                 )}
                             />
@@ -257,28 +256,28 @@ export function CreateTripForm({ students }: { students: User[] }) {
                                 size="icon"
                                 onClick={() => remove(index)}
                                 disabled={fields.length <= 1}
-                                className="text-muted-foreground hover:bg-destructive/20 hover:text-destructive rounded-full"
+                                className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive rounded-full"
                             >
-                                <Icons.Trash className="h-5 w-5" />
+                                <Icons.Trash className="h-4 w-4" />
                                 <span className="sr-only">Remove item</span>
                             </Button>
                             </div>
                         ))}
                      </div>
-                     <FormMessage className="pt-2 font-medium text-base">{form.formState.errors.items?.message}</FormMessage>
+                     <FormMessage className="pt-2 font-medium">{form.formState.errors.items?.message}</FormMessage>
                 </div>
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => append({ name: '', required: true })}
-                className="w-full h-14 text-lg font-bold"
+                className="w-full h-12 text-base font-medium"
               >
-                <Icons.PlusCircle className="mr-2 h-6 w-6" />
+                <Icons.PlusCircle className="mr-2 h-5 w-5" />
                 Add Item
               </Button>
             </div>
           </div>
-          <div className="flex justify-center gap-4 mt-16">
+          <div className="flex justify-end gap-4 mt-16">
             <Button
               type="button"
               variant="ghost"
@@ -287,8 +286,8 @@ export function CreateTripForm({ students }: { students: User[] }) {
             >
               Cancel
             </Button>
-            <Button type="submit" size="lg" className="font-bold text-xl h-14 rounded-full">
-              Create Expedition
+            <Button type="submit" size="lg" className="font-medium text-base">
+              Create Trip
             </Button>
           </div>
         </form>

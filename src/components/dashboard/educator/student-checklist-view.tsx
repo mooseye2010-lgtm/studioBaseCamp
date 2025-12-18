@@ -38,12 +38,12 @@ export function StudentChecklistView({ trip, student }: { trip: Trip; student: U
   return (
     <div className="space-y-8">
         <div className="space-y-2">
-            <h3 className="text-6xl font-bold tracking-tighter font-headline leading-tight">
-                Checklist for <span className="text-primary">{student.name}</span>
+            <h3 className="text-3xl font-light">
+                Checklist for <span className="font-medium text-primary">{student.name}</span>
             </h3>
             <div className="flex items-center gap-4 pt-2">
-                <Progress value={progress} className="h-4 flex-1" />
-                <span className="font-bold text-3xl text-accent w-24 text-right">{progress}%</span>
+                <Progress value={progress} className="h-2 flex-1" />
+                <span className="font-medium text-lg text-accent">{progress}%</span>
             </div>
         </div>
         {trip.items.map((item, i) => {
@@ -53,25 +53,25 @@ export function StudentChecklistView({ trip, student }: { trip: Trip; student: U
             const isConflicting = (status.completed && status.educatorApproved === false) || (!status.completed && status.educatorApproved === true);
 
             return (
-                <div key={item.id} className="animate-fade-in-up-strong" style={{animationDelay: `${i * 70}ms`, animationFillMode: 'backwards'}}>
+                <div key={item.id} className="animate-fade-in-up" style={{animationDelay: `${i * 50}ms`, animationFillMode: 'backwards'}}>
                     <Card className={cn(
-                        "transition-all duration-300 rounded-2xl", 
-                        isConflicting && "border-destructive/80 ring-4 ring-destructive/30",
-                        status.completed ? "bg-secondary/30" : "bg-card/50",
+                        "transition-all duration-300", 
+                        isConflicting && "border-destructive/50 ring-2 ring-destructive/20",
+                        status.completed ? "bg-secondary/70" : "bg-card",
                     )}>
-                        <CardContent className="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:gap-6">
+                        <CardContent className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:gap-4">
                             <div className="flex-1 flex items-center gap-4">
-                                {status.completed ? <Icons.CheckCircle className="text-accent h-10 w-10 shrink-0" /> : <Icons.Circle className="text-muted-foreground/30 h-10 w-10 shrink-0" />}
+                                {status.completed ? <Icons.CheckCircle className="text-accent h-8 w-8 shrink-0" /> : <Icons.Circle className="text-muted-foreground/30 h-8 w-8 shrink-0" />}
                                 <div>
-                                    <p className="font-bold text-2xl tracking-tight">{item.name}</p>
-                                    {!item.required && <Badge variant="secondary" className="mt-1 text-sm">Optional</Badge>}
+                                    <p className="font-medium text-lg">{item.name}</p>
+                                    {!item.required && <Badge variant="secondary" className="mt-1 text-xs">Optional</Badge>}
                                 </div>
                             </div>
-                            <div className="flex items-center gap-1 mt-4 sm:mt-0">
+                            <div className="flex items-center gap-1 mt-3 sm:mt-0">
                                {isConflicting && (
                                  <AIFeedbackDialog item={item} student={student} status={status}>
-                                    <Button variant="ghost" size="icon" className="text-destructive hover:bg-destructive/10 rounded-full h-14 w-14">
-                                        <Icons.AlertTriangle className="h-7 w-7" />
+                                    <Button variant="ghost" size="icon" className="text-destructive hover:bg-destructive/10 rounded-full h-11 w-11">
+                                        <Icons.AlertTriangle className="h-5 w-5" />
                                     </Button>
                                  </AIFeedbackDialog>
                                )}
@@ -79,28 +79,28 @@ export function StudentChecklistView({ trip, student }: { trip: Trip; student: U
                                <Button 
                                     variant={status.educatorApproved === true ? "secondary" : "ghost"} 
                                     size="icon" 
-                                    className={cn("rounded-full h-14 w-14", status.educatorApproved === true ? "bg-green-500/20 text-green-400" : "text-muted-foreground hover:text-green-500")}
+                                    className={cn("rounded-full h-11 w-11", status.educatorApproved === true ? "bg-green-500/20 text-green-500" : "text-muted-foreground hover:text-green-500")}
                                     onClick={() => handleApproval(item.id, status.educatorApproved === true ? null : true)}
                                 >
-                                    <Icons.ThumbsUp className="h-7 w-7" />
+                                    <Icons.ThumbsUp className="h-5 w-5" />
                                </Button>
                                <Button 
                                     variant={status.educatorApproved === false ? "secondary" : "ghost"} 
                                     size="icon" 
-                                    className={cn("rounded-full h-14 w-14", status.educatorApproved === false ? "bg-red-500/20 text-red-400" : "text-muted-foreground hover:text-red-500")}
+                                    className={cn("rounded-full h-11 w-11", status.educatorApproved === false ? "bg-red-500/20 text-red-500" : "text-muted-foreground hover:text-red-500")}
                                     onClick={() => handleApproval(item.id, status.educatorApproved === false ? null : false)}
                                >
-                                    <Icons.ThumbsDown className="h-7 w-7" />
+                                    <Icons.ThumbsDown className="h-5 w-5" />
                                </Button>
                             </div>
                         </CardContent>
                         {status.educatorApproved === false && (
-                            <div className="px-5 pb-5 -mt-2">
+                            <div className="px-5 pb-4 -mt-2">
                                 <Textarea 
                                     placeholder={`Add a comment for ${student.name}...`} 
                                     value={status.educatorComment}
                                     onChange={(e) => handleCommentChange(item.id, e.target.value)}
-                                    className="text-lg bg-secondary/60 rounded-xl"
+                                    className="text-base bg-secondary/80"
                                 />
                             </div>
                         )}
