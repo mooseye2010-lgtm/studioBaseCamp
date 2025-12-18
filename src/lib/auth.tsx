@@ -47,14 +47,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, loading, pathname, router]);
 
   const login = (email: string, role: 'educator' | 'student'): boolean => {
-    const foundUser = users.find(u => u.email === email && u.role === role);
-    if (foundUser) {
-      setUser(foundUser);
-      sessionStorage.setItem('trailblazer-user', JSON.stringify(foundUser));
-      router.push(`/${foundUser.role}/dashboard`);
-      return true;
+    let foundUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.role === role);
+    
+    if (!foundUser) {
+      const name = email.split('@')[0].replace(/[^a-zA-Z]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      foundUser = {
+        id: `user-${Date.now()}`,
+        name: name || 'New User',
+        email: email,
+        role: role,
+      };
     }
-    return false;
+    
+    setUser(foundUser);
+    sessionStorage.setItem('trailblazer-user', JSON.stringify(foundUser));
+    router.push(`/${foundUser.role}/dashboard`);
+    return true;
   };
 
   const logout = () => {
