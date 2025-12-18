@@ -36,10 +36,26 @@ import type { User } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+
+const requirementSchema = z.object({
+  id: z.string(),
+  text: z.string().min(1, 'Requirement text cannot be empty.'),
+});
 
 const packingItemSchema = z.object({
   name: z.string().min(1, 'Item name is required.'),
   required: z.boolean(),
+  description: z.string().optional(),
+  imageUrl: z.string().url().optional().or(z.literal('')),
+  link: z.string().url().optional().or(z.literal('')),
+  requirements: z.array(requirementSchema).optional(),
 });
 
 const formSchema = z.object({
@@ -60,7 +76,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
     defaultValues: {
       name: '',
       assignedStudentIds: [],
-      items: [{ name: 'Water Bottle', required: true }, { name: 'Hiking Boots', required: true }, { name: 'Sunscreen', required: false }],
+      items: [{ name: 'Water Bottle', required: true, description: '', imageUrl: '', link: '', requirements: [] }, { name: 'Hiking Boots', required: true, description: '', imageUrl: '', link: '', requirements: [] }, { name: 'Sunscreen', required: false, description: '', imageUrl: '', link: '', requirements: [] }],
     },
   });
 
@@ -219,49 +235,13 @@ export function CreateTripForm({ students }: { students: User[] }) {
                      <h2 className="text-base font-medium mb-4 uppercase font-body tracking-wider">Packing List Items</h2>
                      <div className="space-y-3">
                         {fields.map((field, index) => (
-                            <div
+                          <PackingItemForm
                             key={field.id}
-                            className="flex items-center gap-3 p-2 border rounded-2xl bg-card"
-                            >
-                            <FormField
-                                control={form.control}
-                                name={`items.${index}.name`}
-                                render={({ field }) => (
-                                <FormItem className="flex-1">
-                                    <FormControl>
-                                    <Input placeholder="e.g., Water Bottle" {...field} className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-base h-auto p-1 rounded-md" />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name={`items.${index}.required`}
-                                render={({ field }) => (
-                                <FormItem className="flex items-center gap-2">
-                                    <FormControl>
-                                    <Switch
-                                        checked={field.value}
-                                        onCheckedChange={field.onChange}
-                                    />
-                                    </FormControl>
-                                    <FormLabel className="text-xs text-muted-foreground font-normal uppercase font-body tracking-wider">Required</FormLabel>
-                                </FormItem>
-                                )}
-                            />
-                            <Button
-                                type="button"
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => remove(index)}
-                                disabled={fields.length <= 1}
-                                className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive rounded-full"
-                            >
-                                <Icons.Trash className="h-4 w-4" />
-                                <span className="sr-only">Remove item</span>
-                            </Button>
-                            </div>
+                            form={form}
+                            index={index}
+                            onRemove={() => remove(index)}
+                            isRemoveDisabled={fields.length <= 1}
+                          />
                         ))}
                      </div>
                      <FormMessage className="pt-2 font-medium uppercase font-body tracking-wider">{form.formState.errors.items?.message}</FormMessage>
@@ -269,7 +249,7 @@ export function CreateTripForm({ students }: { students: User[] }) {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => append({ name: '', required: true })}
+                onClick={() => append({ name: '', required: true, description: '', imageUrl: '', link: '', requirements: [] })}
                 className="w-full h-14 text-base font-medium rounded-full uppercase font-body tracking-wider"
               >
                 <Icons.PlusCircle className="mr-2 h-5 w-5" />
@@ -294,5 +274,125 @@ export function CreateTripForm({ students }: { students: User[] }) {
         </form>
       </Form>
     </div>
+  );
+}
+
+function PackingItemForm({ form, index, onRemove, isRemoveDisabled }: { form: any, index: number, onRemove: () => void, isRemoveDisabled: boolean }) {
+  const { fields: reqFields, append: appendReq, remove: removeReq } = useFieldArray({
+    control: form.control,
+    name: `items.${index}.requirements`,
+  });
+  
+  return (
+    <Card className="border rounded-2xl bg-card overflow-hidden">
+      <div className="flex items-center gap-3 p-2">
+        <FormField
+          control={form.control}
+          name={`items.${index}.name`}
+          render={({ field }) => (
+            <FormItem className="flex-1">
+              <FormControl>
+                <Input placeholder="e.g., Water Bottle" {...field} className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-base h-auto p-1 rounded-md" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name={`items.${index}.required`}
+          render={({ field }) => (
+            <FormItem className="flex items-center gap-2">
+              <FormControl>
+                <Switch checked={field.value} onCheckedChange={field.onChange} />
+              </FormControl>
+              <FormLabel className="text-xs text-muted-foreground font-normal uppercase font-body tracking-wider">Required</FormLabel>
+            </FormItem>
+          )}
+        />
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={onRemove}
+          disabled={isRemoveDisabled}
+          className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive rounded-full"
+        >
+          <Icons.Trash className="h-4 w-4" />
+          <span className="sr-only">Remove item</span>
+        </Button>
+      </div>
+      <Accordion type="single" collapsible>
+        <AccordionItem value="details" className="border-t">
+          <AccordionTrigger className="px-4 py-2 text-xs text-muted-foreground uppercase tracking-wider font-body">
+            Add Details & Requirements
+          </AccordionTrigger>
+          <AccordionContent className="p-4 pt-0 space-y-4">
+            <FormField
+              control={form.control}
+              name={`items.${index}.description`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs uppercase tracking-wider font-light">Description</FormLabel>
+                  <FormControl><Textarea {...field} placeholder="Add a short description..." className="text-sm" /></FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name={`items.${index}.imageUrl`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs uppercase tracking-wider font-light">Image URL</FormLabel>
+                  <FormControl><Input {...field} placeholder="https://example.com/image.png" className="text-sm h-10" /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name={`items.${index}.link`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs uppercase tracking-wider font-light">Reference Link</FormLabel>
+                  <FormControl><Input {...field} placeholder="https://example.com/product" className="text-sm h-10" /></FormControl>
+                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <div>
+              <FormLabel className="text-xs uppercase tracking-wider font-light mb-2 block">Sub-Requirements</FormLabel>
+              <div className="space-y-2">
+                {reqFields.map((reqField, reqIndex) => (
+                  <div key={reqField.id} className="flex items-center gap-2">
+                    <FormField
+                      control={form.control}
+                      name={`items.${index}.requirements.${reqIndex}.text`}
+                      render={({ field }) => (
+                        <FormItem className="flex-1">
+                           <FormControl>
+                             <Input {...field} placeholder="e.g., Must be waterproof" className="text-sm h-10 bg-secondary" />
+                           </FormControl>
+                           <FormMessage/>
+                        </FormItem>
+                      )}
+                    />
+                     <Button type="button" variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive rounded-full h-8 w-8" onClick={() => removeReq(reqIndex)}>
+                        <Icons.Trash size={14} />
+                      </Button>
+                  </div>
+                ))}
+              </div>
+              <Button type="button" variant="outline" size="sm" className="mt-2 h-8 rounded-full" onClick={() => appendReq({ id: `req-${Date.now()}`, text: '' })}>
+                <Icons.PlusCircle size={14} className="mr-2" />
+                Add Requirement
+              </Button>
+            </div>
+
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </Card>
   );
 }

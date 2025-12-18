@@ -27,6 +27,9 @@ import {
   Moon,
   Laptop,
   Flame,
+  ChevronDown,
+  Link,
+  Lock,
 } from 'lucide-react';
 
 export const Icons = {
@@ -58,4 +61,7 @@ export const Icons = {
   Moon,
   System: Laptop,
   Fire: Flame,
+  ChevronDown,
+  Link,
+  Lock,
 };
