@@ -10,11 +10,11 @@ export default function Home() {
       <div className="w-full max-w-md">
         <Card className="shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center justify-center gap-2 text-2xl font-headline">
+            <CardTitle className="flex items-center justify-center gap-0.5 text-2xl font-headline">
               <span className="text-primary">B</span>
-              <Tent className="text-primary -mx-1" size={28} />
+              <Tent className="text-primary" size={28} />
               <span className="text-primary">secamp</span>
-              <Mountain className="text-primary" size={28} />
+              <Mountain className="text-primary ml-1" size={28} />
             </CardTitle>
           </CardHeader>
           <CardContent>

@@ -7,6 +7,12 @@
       "imageHint": "nature landscape"
     },
     {
+      "id": "nature-background-2",
+      "description": "Crystal clear water of a mountain lake with submerged rocks visible and mountains in the background.",
+      "imageUrl": "https://images.unsplash.com/photo-1551632811-561732d1e306?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcnlzdGFsJTIwY2xlYXIlMjBsYWtlJTIwbW91bnRhaW58ZW58MHx8fHwxNzY2NTA1MTg5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "clear lake"
+    },
+    {
       "id": "trip-yosemite",
       "description": "A view of Yosemite Valley with large granite cliffs and pine trees.",
       "imageUrl": "https://images.unsplash.com/photo-1527489377706-5bf97e608852?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuYXRpb25hbCUyMHBhcmt8ZW58MHx8fHwxNzY1OTI1MDYyfDA&ixlib=rb-4.1.0&q=80&w=1080",

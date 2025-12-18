@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: 'Collaborative packing lists for students and educators',
 };
 
-const background_image = placeholderImages.find(p => p.id === 'nature-background');
+const background_image = placeholderImages.find(p => p.id === 'nature-background-2');
 
 export default function RootLayout({
   children,
@@ -40,7 +40,7 @@ export default function RootLayout({
               priority
             />
           )}
-          <div className="absolute inset-0 bg-background/60 backdrop-blur-lg -z-40" />
+          <div className="absolute inset-0 bg-background/20 backdrop-blur-xl -z-40" />
           {children}
           <Toaster />
         </AuthProvider>

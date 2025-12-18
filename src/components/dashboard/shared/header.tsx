@@ -30,16 +30,16 @@ export function AppHeader() {
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <Link
           href={user ? `/${user.role}/dashboard` : '/'}
-          className="flex items-center gap-2"
+          className="flex items-center gap-0.5"
         >
           <span className="text-xl font-bold text-primary font-headline">
             B
           </span>
-          <Icons.Tent className="h-6 w-6 text-primary -mx-1.5" />
+          <Icons.Tent className="h-6 w-6 text-primary" />
           <h1 className="text-xl font-bold text-primary font-headline">
             secamp
           </h1>
-          <Icons.Mountain className="h-6 w-6 text-primary" />
+          <Icons.Mountain className="h-6 w-6 text-primary ml-1" />
         </Link>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <DropdownMenu>
