@@ -27,7 +27,7 @@ export default function AuthenticatedLayout({
   return (
     <div className="flex h-svh flex-col">
       <AppHeader />
-      <main className="flex-1 flex flex-col overflow-hidden">{children}</main>
+      <main className="flex-1 flex flex-col">{children}</main>
     </div>
   );
 }
