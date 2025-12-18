@@ -40,7 +40,7 @@ export default function RootLayout({
               priority
             />
           )}
-          <div className="absolute inset-0 bg-background/20 backdrop-blur-xl -z-40" />
+          <div className="absolute inset-0 bg-background/5 backdrop-blur-xl -z-40" />
           {children}
           <Toaster />
         </AuthProvider>

@@ -6,9 +6,9 @@
   :root {
     --background: 210 40% 98%;
     --foreground: 224 71% 4%;
-    --card: 210 40% 98% / 0.5;
+    --card: 210 40% 98% / 0.1;
     --card-foreground: 224 71% 4%;
-    --popover: 210 40% 98% / 0.7;
+    --popover: 210 40% 98% / 0.3;
     --popover-foreground: 224 71% 4%;
     --primary: 221 39% 11%;
     --primary-foreground: 210 40% 98%;
@@ -20,10 +20,9 @@
     --accent-foreground: 210 40% 98%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 210 20% 80% / 0.5;
-    --input: 210 30% 92% / 0.5;
+    --border: 210 20% 80% / 0.3;
+    --input: 210 30% 92% / 0.2;
     --ring: 221 39% 11%;
-    --radius: 0.8rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -34,9 +33,9 @@
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9% / 0.5;
+    --card: 222.2 84% 4.9% / 0.1;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9% / 0.7;
+    --popover: 222.2 84% 4.9% / 0.3;
     --popover-foreground: 210 40% 98%;
     --primary: 210 40% 98%;
     --primary-foreground: 221 39% 11%;
@@ -48,8 +47,8 @@
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5% / 0.5;
-    --input: 217.2 32.6% 17.5% / 0.5;
+    --border: 217.2 32.6% 17.5% / 0.3;
+    --input: 217.2 32.6% 17.5% / 0.2;
     --ring: 212.7 26.8% 83.9%;
   }
 }
@@ -82,4 +81,19 @@
 
 .animate-stake-in {
   animation: stake-in 0.5s ease-out forwards;
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }

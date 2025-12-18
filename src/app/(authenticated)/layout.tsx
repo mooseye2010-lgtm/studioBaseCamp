@@ -28,7 +28,7 @@ export default function AuthenticatedLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <AppHeader />
-      <main className="flex-1 p-4 md:p-8">{children}</main>
+      <main className="flex-1 p-4 md:p-8 animate-fade-in-up">{children}</main>
     </div>
   );
 }
