@@ -17,7 +17,6 @@ export function StudentDashboard() {
   const { user } = useAuth();
   const [trips, setTrips] = useState<Trip[]>([]);
   const [currentTripIndex, setCurrentTripIndex] = useState(0);
-  const router = useRouter();
 
   useEffect(() => {
     if (user) {
@@ -25,13 +24,6 @@ export function StudentDashboard() {
       setTrips(assignedTrips);
     }
   }, [user]);
-
-  // If there's only one trip, navigate directly to it
-  useEffect(() => {
-    if (trips.length === 1) {
-      router.push(`/student/trip/${trips[0].id}`);
-    }
-  }, [trips, router]);
 
   if (!user || user.role !== 'student') {
     return null;
@@ -47,11 +39,6 @@ export function StudentDashboard() {
             </div>
         </div>
     );
-  }
-
-  // Don't render dashboard if there's only one trip (will be redirected)
-  if (trips.length <= 1) {
-      return null;
   }
   
   const handleNext = () => {
