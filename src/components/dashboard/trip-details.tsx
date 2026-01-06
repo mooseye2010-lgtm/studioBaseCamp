@@ -22,21 +22,17 @@ export function TripDetails({ tripId }: { tripId: string }) {
     const foundTrip = trips.find(t => t.id === tripId);
     if (foundTrip) {
       setTrip(foundTrip);
-      // Filter the global users list to get students assigned to this trip.
       const assignedStudents = users.filter(u => foundTrip.assignedStudentIds.includes(u.id));
       setStudents(assignedStudents);
-      // Automatically select the first student in the list.
       if (assignedStudents.length > 0) {
         setSelectedStudent(assignedStudents[0]);
       }
     } else {
-      // If no trip is found, set state to null to show a loading/error message.
       setTrip(null);
     }
   }, [tripId]);
 
   if (trip === null) {
-    // You could replace this with a more sophisticated loading skeleton.
     return <p className="p-12 uppercase font-body">Loading trip details...</p>;
   }
 
@@ -79,8 +75,8 @@ function TripHeader({ trip }: { trip: Trip }) {
           All Trips
         </Link>
       </Button>
-      <h2 className="text-4xl leading-tight font-headline mt-2">{trip.name}</h2>
-      <p className="text-lg text-muted-foreground flex items-center gap-2 mt-1 uppercase font-body">
+      <h2 className="text-4xl leading-tight font-headline mt-2 tracking-widest font-light">{trip.name}</h2>
+      <p className="text-lg text-muted-foreground flex items-center gap-2 mt-1 uppercase font-body tracking-wider">
         <Icons.Calendar size={18} />
         {new Date(trip.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
       </p>
@@ -104,14 +100,14 @@ function StudentProgressItem({ student, tripId, onSelect, isActive }: { student:
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelect(); }}
     >
       <Avatar className="h-12 w-12 text-base border-2 border-muted">
-        <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${student.name}`} alt={student.name} />
+        <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${student.name}`} alt={student.name}/>
         <AvatarFallback>{getInitials(student.name)}</AvatarFallback>
       </Avatar>
       <div className="flex-1">
-        <p className="font-medium text-lg uppercase font-body">{student.name}</p>
+        <p className="font-medium text-base uppercase font-body tracking-wider">{student.name}</p>
         <div className="flex items-center gap-3 mt-1">
           <Progress value={progress} className="h-2 rounded-full flex-1" />
-          <span className="font-semibold text-md text-accent w-14 text-right uppercase font-body">{progress}%</span>
+          <span className="font-semibold text-sm text-accent w-14 text-right uppercase font-body tracking-wider">{progress}%</span>
         </div>
       </div>
       <Icons.ChevronRight className={cn(

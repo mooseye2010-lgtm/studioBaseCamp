@@ -68,25 +68,33 @@ const formSchema = z.object({
   items: z.array(packingItemSchema).min(1, 'At least one packing item is required.'),
 });
 
+type CreateTripFormValues = z.infer<typeof formSchema>;
+
+const defaultPackingItems = [
+    { name: 'Water Bottle', required: true, description: '', imageUrl: '', link: '', requirements: [] },
+    { name: 'Hiking Boots', required: true, description: '', imageUrl: '', link: '', requirements: [] },
+    { name: 'Sunscreen', required: false, description: '', imageUrl: '', link: '', requirements: [] }
+];
+
 export function CreateTripForm({ students }: { students: User[] }) {
   const router = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<CreateTripFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
       assignedStudentIds: [],
-      items: [{ name: 'Water Bottle', required: true, description: '', imageUrl: '', link: '', requirements: [] }, { name: 'Hiking Boots', required: true, description: '', imageUrl: '', link: '', requirements: [] }, { name: 'Sunscreen', required: false, description: '', imageUrl: '', link: '', requirements: [] }],
+      items: defaultPackingItems,
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields: packingItems, append: appendPackingItem, remove: removePackingItem } = useFieldArray({
     control: form.control,
     name: 'items',
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: CreateTripFormValues) {
     console.log(values);
     toast({
       title: '🚀 Trip Created!',
@@ -97,193 +105,189 @@ export function CreateTripForm({ students }: { students: User[] }) {
 
   return (
     <div className="container mx-auto max-w-4xl py-12">
-      <div className="mb-10">
-        <Button asChild variant="ghost" className="mb-4 rounded-full">
-            <Link
-            href="/educator/dashboard"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group uppercase font-body tracking-wider"
-            >
-            <Icons.ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            Back to Dashboard
-            </Link>
-        </Button>
-        <h1 className="text-5xl tracking-widest font-headline font-light">
-          Create New Trip
-        </h1>
-      </div>
+        <header className="mb-10">
+            <Button asChild variant="ghost" className="mb-4 rounded-full">
+                <Link
+                href="/educator/dashboard"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group uppercase font-body tracking-wider"
+                >
+                <Icons.ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+                Back to Dashboard
+                </Link>
+            </Button>
+            <h1 className="text-5xl tracking-widest font-headline font-light">
+            Create New Trip
+            </h1>
+        </header>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12">
-            <div className="space-y-8">
-              <FormField
-                control={form.control}
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12">
+                <div className="space-y-8">
+                <TripInfoFormSection control={form.control} />
+                <AssignStudentsFormSection control={form.control} students={students} />
+                </div>
+                <div className="space-y-6">
+                <div>
+                    <h2 className="text-base font-medium mb-4 uppercase font-body tracking-wider">Packing List Items</h2>
+                    <div className="space-y-3">
+                        {packingItems.map((item, index) => (
+                        <PackingItemForm
+                            key={item.id}
+                            form={form}
+                            index={index}
+                            onRemove={() => removePackingItem(index)}
+                            isRemoveDisabled={packingItems.length <= 1}
+                        />
+                        ))}
+                    </div>
+                    <FormMessage className="pt-2 font-medium uppercase font-body tracking-wider">{form.formState.errors.items?.message}</FormMessage>
+                </div>
+                <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => appendPackingItem({ name: '', required: true, description: '', imageUrl: '', link: '', requirements: [] })}
+                    className="w-full h-14 text-base font-medium rounded-full uppercase font-body tracking-wider"
+                >
+                    <Icons.PlusCircle className="mr-2 h-5 w-5" />
+                    Add Item
+                </Button>
+                </div>
+            </div>
+            <div className="flex justify-end gap-4 mt-16">
+                <Button
+                type="button"
+                variant="ghost"
+                size="lg"
+                className="rounded-full uppercase font-body tracking-wider"
+                onClick={() => router.push('/educator/dashboard')}
+                >
+                Cancel
+                </Button>
+                <Button type="submit" size="lg" className="text-lg rounded-full uppercase font-body tracking-wider">
+                Create Trip
+                </Button>
+            </div>
+            </form>
+        </Form>
+    </div>
+  );
+}
+
+// Sub-component for Trip Information fields
+function TripInfoFormSection({ control }: { control: any }) {
+    return (
+        <>
+            <FormField
+                control={control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem>
+                <FormItem>
                     <FormLabel className="text-base font-medium uppercase font-body tracking-wider">Trip Name</FormLabel>
                     <FormControl>
-                      <Input
+                    <Input
                         className="text-lg h-16 rounded-2xl"
                         placeholder="e.g., Yosemite Geology Tour"
                         {...field}
-                      />
+                    />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
+                </FormItem>
                 )}
-              />
-              <FormField
-                control={form.control}
+            />
+            <FormField
+                control={control}
                 name="date"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col">
+                <FormItem className="flex flex-col">
                     <FormLabel className="text-base font-medium uppercase font-body tracking-wider">Departure Date</FormLabel>
                     <Popover>
-                      <PopoverTrigger asChild>
+                    <PopoverTrigger asChild>
                         <FormControl>
-                          <Button
+                        <Button
                             variant={'outline'}
                             className={cn(
-                              'w-full sm:w-[280px] justify-start text-left font-normal text-base h-16 rounded-2xl uppercase font-body tracking-wider',
-                              !field.value && 'text-muted-foreground'
+                            'w-full sm:w-[280px] justify-start text-left font-normal text-base h-16 rounded-2xl uppercase font-body tracking-wider',
+                            !field.value && 'text-muted-foreground'
                             )}
-                          >
+                        >
                             <Icons.Calendar className="mr-3 h-5 w-5" />
-                            {field.value ? (
-                              format(field.value, 'PPP')
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                          </Button>
+                            {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                        </Button>
                         </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0 rounded-3xl">
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0 rounded-3xl">
                         <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) => date < new Date()}
-                          initialFocus
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) => date < new Date()}
+                        initialFocus
                         />
-                      </PopoverContent>
+                    </PopoverContent>
                     </Popover>
                     <FormMessage />
-                  </FormItem>
+                </FormItem>
                 )}
-              />
-                <Card className="bg-card rounded-3xl">
-                    <CardHeader>
-                    <CardTitle className="text-xl font-medium uppercase font-body tracking-wider">Assign Students</CardTitle>
-                    <CardDescription className="uppercase font-body tracking-wider">
-                        Select students for this trip.
-                    </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                    <FormField
-                        control={form.control}
-                        name="assignedStudentIds"
-                        render={() => (
+            />
+        </>
+    );
+}
+
+// Sub-component for Assigning Students
+function AssignStudentsFormSection({ control, students }: { control: any, students: User[] }) {
+    return (
+        <Card className="bg-card rounded-3xl">
+            <CardHeader>
+                <CardTitle className="text-xl font-medium uppercase font-body tracking-wider">Assign Students</CardTitle>
+                <CardDescription className="uppercase font-body tracking-wider">
+                    Select students for this trip.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <FormField
+                    control={control}
+                    name="assignedStudentIds"
+                    render={({ field }) => (
                         <FormItem>
                             <div className="space-y-2">
-                            {students.map((student) => (
-                                <FormField
-                                key={student.id}
-                                control={form.control}
-                                name="assignedStudentIds"
-                                render={({ field }) => {
-                                    return (
+                                {students.map((student) => (
                                     <FormItem
                                         key={student.id}
                                         className="flex flex-row items-center space-x-3 space-y-0 p-3 rounded-2xl transition-colors hover:bg-secondary"
                                     >
                                         <FormControl>
-                                        <Checkbox
-                                            className="h-6 w-6 rounded-md"
-                                            checked={field.value?.includes(student.id)}
-                                            onCheckedChange={(checked) => {
-                                            return checked
-                                                ? field.onChange([
-                                                    ...field.value,
-                                                    student.id,
-                                                ])
-                                                : field.onChange(
-                                                    field.value?.filter(
-                                                    (value) => value !== student.id
-                                                    )
-                                                );
-                                            }}
-                                        />
+                                            <Checkbox
+                                                className="h-6 w-6 rounded-md"
+                                                checked={field.value?.includes(student.id)}
+                                                onCheckedChange={(checked) => {
+                                                    const currentIds = field.value || [];
+                                                    const newIds = checked
+                                                        ? [...currentIds, student.id]
+                                                        : currentIds.filter((id) => id !== student.id);
+                                                    field.onChange(newIds);
+                                                }}
+                                            />
                                         </FormControl>
                                         <FormLabel className="font-normal text-base flex-1 cursor-pointer uppercase font-body tracking-wider">
-                                        {student.name} <span className="block text-sm text-muted-foreground normal-case font-light">{student.email}</span>
+                                            {student.name}
+                                            <span className="block text-sm text-muted-foreground normal-case font-light">{student.email}</span>
                                         </FormLabel>
                                     </FormItem>
-                                    );
-                                }}
-                                />
-                            ))}
+                                ))}
                             </div>
-                            <FormMessage className="pt-4 font-medium text-base text-center uppercase font-body tracking-wider">{form.formState.errors.assignedStudentIds?.message}</FormMessage>
+                            <FormMessage className="pt-4 font-medium text-base text-center uppercase font-body tracking-wider" />
                         </FormItem>
-                        )}
-                    />
-                    </CardContent>
-                </Card>
-            </div>
-            <div className="space-y-6">
-                <div>
-                     <h2 className="text-base font-medium mb-4 uppercase font-body tracking-wider">Packing List Items</h2>
-                     <div className="space-y-3">
-                        {fields.map((field, index) => (
-                          <PackingItemForm
-                            key={field.id}
-                            form={form}
-                            index={index}
-                            onRemove={() => remove(index)}
-                            isRemoveDisabled={fields.length <= 1}
-                          />
-                        ))}
-                     </div>
-                     <FormMessage className="pt-2 font-medium uppercase font-body tracking-wider">{form.formState.errors.items?.message}</FormMessage>
-                </div>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => append({ name: '', required: true, description: '', imageUrl: '', link: '', requirements: [] })}
-                className="w-full h-14 text-base font-medium rounded-full uppercase font-body tracking-wider"
-              >
-                <Icons.PlusCircle className="mr-2 h-5 w-5" />
-                Add Item
-              </Button>
-            </div>
-          </div>
-          <div className="flex justify-end gap-4 mt-16">
-            <Button
-              type="button"
-              variant="ghost"
-              size="lg"
-              className="rounded-full uppercase font-body tracking-wider"
-              onClick={() => router.push('/educator/dashboard')}
-            >
-              Cancel
-            </Button>
-            <Button type="submit" size="lg" className="text-lg rounded-full uppercase font-body tracking-wider">
-              Create Trip
-            </Button>
-          </div>
-        </form>
-      </Form>
-    </div>
-  );
+                    )}
+                />
+            </CardContent>
+        </Card>
+    );
 }
 
+
+// Sub-component for a single Packing Item form
 function PackingItemForm({ form, index, onRemove, isRemoveDisabled }: { form: any, index: number, onRemove: () => void, isRemoveDisabled: boolean }) {
-  const { fields: reqFields, append: appendReq, remove: removeReq } = useFieldArray({
-    control: form.control,
-    name: `items.${index}.requirements`,
-  });
-  
   return (
     <Card className="border rounded-2xl bg-card overflow-hidden">
       <div className="flex items-center gap-3 p-2">
@@ -329,68 +333,7 @@ function PackingItemForm({ form, index, onRemove, isRemoveDisabled }: { form: an
             Add Details & Requirements
           </AccordionTrigger>
           <AccordionContent className="p-4 pt-0 space-y-4">
-            <FormField
-              control={form.control}
-              name={`items.${index}.description`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs uppercase tracking-wider font-light">Description</FormLabel>
-                  <FormControl><Textarea {...field} placeholder="Add a short description..." className="text-sm" /></FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`items.${index}.imageUrl`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs uppercase tracking-wider font-light">Image URL</FormLabel>
-                  <FormControl><Input {...field} placeholder="https://example.com/image.png" className="text-sm h-10" /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name={`items.${index}.link`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs uppercase tracking-wider font-light">Reference Link</FormLabel>
-                  <FormControl><Input {...field} placeholder="https://example.com/product" className="text-sm h-10" /></FormControl>
-                   <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <div>
-              <FormLabel className="text-xs uppercase tracking-wider font-light mb-2 block">Sub-Requirements</FormLabel>
-              <div className="space-y-2">
-                {reqFields.map((reqField, reqIndex) => (
-                  <div key={reqField.id} className="flex items-center gap-2">
-                    <FormField
-                      control={form.control}
-                      name={`items.${index}.requirements.${reqIndex}.text`}
-                      render={({ field }) => (
-                        <FormItem className="flex-1">
-                           <FormControl>
-                             <Input {...field} placeholder="e.g., Must be waterproof" className="text-sm h-10 bg-secondary" />
-                           </FormControl>
-                           <FormMessage/>
-                        </FormItem>
-                      )}
-                    />
-                     <Button type="button" variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive rounded-full h-8 w-8" onClick={() => removeReq(reqIndex)}>
-                        <Icons.Trash size={14} />
-                      </Button>
-                  </div>
-                ))}
-              </div>
-              <Button type="button" variant="outline" size="sm" className="mt-2 h-8 rounded-full" onClick={() => appendReq({ id: `req-${Date.now()}`, text: '' })}>
-                <Icons.PlusCircle size={14} className="mr-2" />
-                Add Requirement
-              </Button>
-            </div>
-
+            <PackingItemDetailsForm form={form} index={index} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -398,4 +341,75 @@ function PackingItemForm({ form, index, onRemove, isRemoveDisabled }: { form: an
   );
 }
 
-    
+// Sub-component for the details within a packing item (description, urls, requirements)
+function PackingItemDetailsForm({ form, index }: { form: any, index: number }) {
+  const { fields: reqFields, append: appendReq, remove: removeReq } = useFieldArray({
+    control: form.control,
+    name: `items.${index}.requirements`,
+  });
+
+  return (
+    <>
+      <FormField
+        control={form.control}
+        name={`items.${index}.description`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="text-xs uppercase tracking-wider font-light">Description</FormLabel>
+            <FormControl><Textarea {...field} placeholder="Add a short description..." className="text-sm" /></FormControl>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name={`items.${index}.imageUrl`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="text-xs uppercase tracking-wider font-light">Image URL</FormLabel>
+            <FormControl><Input {...field} placeholder="https://example.com/image.png" className="text-sm h-10" /></FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name={`items.${index}.link`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="text-xs uppercase tracking-wider font-light">Reference Link</FormLabel>
+            <FormControl><Input {...field} placeholder="https://example.com/product" className="text-sm h-10" /></FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <div>
+        <FormLabel className="text-xs uppercase tracking-wider font-light mb-2 block">Sub-Requirements</FormLabel>
+        <div className="space-y-2">
+          {reqFields.map((reqField, reqIndex) => (
+            <div key={reqField.id} className="flex items-center gap-2">
+              <FormField
+                control={form.control}
+                name={`items.${index}.requirements.${reqIndex}.text`}
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormControl>
+                      <Input {...field} placeholder="e.g., Must be waterproof" className="text-sm h-10 bg-secondary" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="button" variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive rounded-full h-8 w-8" onClick={() => removeReq(reqIndex)}>
+                <Icons.Trash size={14} />
+              </Button>
+            </div>
+          ))}
+        </div>
+        <Button type="button" variant="outline" size="sm" className="mt-2 h-8 rounded-full" onClick={() => appendReq({ id: `req-${Date.now()}`, text: '' })}>
+          <Icons.PlusCircle size={14} className="mr-2" />
+          Add Requirement
+        </Button>
+      </div>
+    </>
+  );
+}
