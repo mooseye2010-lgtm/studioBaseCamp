@@ -37,7 +37,7 @@ export const trips: Trip[] = [
     date: '2024-11-05',
     imageUrl: zionImage.imageUrl,
     imageHint: zionImage.imageHint,
-    assignedStudentIds: [], // All students
+    assignedStudentIds: ['user-2', 'user-3', 'user-5'], // All students
     items: [
       { id: 'item-2-1', name: 'Wide-brimmed Hat', required: true, description: 'To protect from the sun.' },
       { id: 'item-2-2', name: 'Sunglasses', required: true },
@@ -51,7 +51,7 @@ export const trips: Trip[] = [
     date: '2025-04-20',
     imageUrl: smokyImage.imageUrl,
     imageHint: smokyImage.imageHint,
-    assignedStudentIds: [], // All students
+    assignedStudentIds: ['user-2', 'user-3', 'user-5'], // All students
     items: [
       { id: 'item-3-1', name: 'Rain Jacket', required: true },
       { id: 'item-3-2', name: 'Insect Repellent', required: true },

@@ -11,18 +11,23 @@ import { getStudentTripProgress } from '@/lib/utils';
 import { format } from 'date-fns';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export function StudentDashboard() {
   const { user } = useAuth();
+  const router = useRouter();
   const [trips, setTrips] = useState<Trip[]>([]);
   const [currentTripIndex, setCurrentTripIndex] = useState(0);
 
   useEffect(() => {
     if (user) {
-      const assignedTrips = allTrips.filter(trip => trip.assignedStudentIds.includes(user.id));
+      const assignedTrips = allTrips.filter(trip => trip.assignedStudentIds.includes(user.id) || trip.assignedStudentIds.length === 0);
       setTrips(assignedTrips);
+       if (assignedTrips.length === 1) {
+        router.push(`/student/trip/${assignedTrips[0].id}`);
+      }
     }
-  }, [user]);
+  }, [user, router]);
 
   if (!user || user.role !== 'student') {
     return null;
@@ -40,6 +45,12 @@ export function StudentDashboard() {
     );
   }
   
+    if (trips.length === 1) {
+        // Render nothing while we redirect, or a loading state
+        return null;
+    }
+
+
   const handleNext = () => {
       setCurrentTripIndex((prev) => (prev + 1) % trips.length);
   }
@@ -94,7 +105,7 @@ function TripCard({ trip, studentId }: { trip: Trip, studentId: string }) {
         <Card className="relative flex flex-col h-full overflow-hidden transition-all duration-500 ease-in-out shadow-2xl shadow-black/30 hover:shadow-primary/20 bg-card/80 backdrop-blur-xl rounded-[2.5rem] group-hover:scale-[1.03] group-hover:-translate-y-2 border-border/20">
             <div className="relative w-full h-1/2 flex-shrink-0">
                 <Image src={trip.imageUrl} alt={trip.name} fill className="object-cover" data-ai-hint={trip.imageHint}/>
-                <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-card/40 to-transparent" />
             </div>
             <div className="flex flex-col flex-1 p-8 w-full justify-end">
                 <div className="text-center">
