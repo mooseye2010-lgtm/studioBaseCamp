@@ -274,6 +274,36 @@ function PackingItemCard({ item, status, onCheckedChange, onRequirementCheckedCh
 }
 
 function Checkbox({ id, checked, onCheckedChange, disabled }: { id: string, checked: boolean, onCheckedChange: (checked: boolean) => void, disabled?: boolean }) {
+    const content = (
+        <>
+            {checked && <Icons.Check className="h-8 w-8 text-primary-foreground animate-check-reveal" strokeWidth={3} />}
+            {!checked && !disabled && (
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild><div className="h-full w-full"/></TooltipTrigger>
+                        <TooltipContent className="rounded-lg uppercase font-body tracking-wider">
+                            <p>Mark as complete</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+            )}
+            {!checked && disabled && (
+                 <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <div className="h-full w-full flex items-center justify-center">
+                                <Icons.Lock className="h-5 w-5 text-muted-foreground/50"/>
+                            </div>
+                        </TooltipTrigger>
+                        <TooltipContent className="rounded-lg uppercase font-body tracking-wider">
+                            <p>Complete all sub-requirements first</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+            )}
+        </>
+    );
+
     return (
         <button
             id={id}
@@ -284,29 +314,7 @@ function Checkbox({ id, checked, onCheckedChange, disabled }: { id: string, chec
             className={cn("group h-16 w-16 shrink-0 flex items-center justify-center rounded-2xl bg-muted/30 hover:bg-muted/60 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring", disabled && "opacity-50 cursor-not-allowed")}
         >
             <div className={cn("h-9 w-9 rounded-lg border-2 border-foreground/30 flex items-center justify-center transition-all duration-300 group-hover:border-primary group-hover:scale-110", checked && "bg-primary border-primary rotate-6", disabled && !checked && "border-muted-foreground/20")}>
-                {checked && <Icons.Check className="h-8 w-8 text-primary-foreground animate-check-reveal" strokeWidth={3} />}
-                {!checked && !disabled && (
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger asChild><div/></TooltipTrigger>
-                             <TooltipContent className="rounded-lg uppercase font-body tracking-wider">
-                                <p>Mark as complete</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
-                )}
-                 {!checked && disabled && (
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Icons.Lock className="h-5 w-5 text-muted-foreground/50"/>
-                            </TooltipTrigger>
-                             <TooltipContent className="rounded-lg uppercase font-body tracking-wider">
-                                <p>Complete all sub-requirements first</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
-                )}
+                {content}
             </div>
         </button>
     )
