@@ -60,7 +60,7 @@ export function StudentDashboard() {
                 return (
                     <div
                         key={trip.id}
-                        className="absolute w-full h-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                        className="absolute w-full h-full transition-all duration-500 ease-3d"
                         style={{
                             transform: `rotateY(${offset * 20}deg) translateX(${offset * 15}%) scale(${isCurrent ? 1 : 0.8})`,
                             zIndex: trips.length - Math.abs(offset),
